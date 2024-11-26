@@ -1,12 +1,11 @@
 <nav class="flex items-center justify-between bg-white p-4 shadow">
     <!-- Logo -->
     <div class="flex items-center space-x-2 hidden lg:flex">
-        <img src="path/to/logo.png" alt="Logo" class="h-6" />
-        <span class="text-cyan-500 text-xl font-bold">visitnusantara</span>
+        <img src="{{ asset('assets/images/logo-type-3.svg') }}" alt="Logo" class="h-6 w-40" />
     </div>
 
     <!-- Search Bar -->
-    <div class="flex items-center border rounded-full overflow-hidden shadow-sm flex-1 lg:mx-4">
+    <div class="flex items-center border rounded-lg overflow-hidden shadow-sm flex-1 lg:mx-4 lg:w-2/3">
         <input type="text" placeholder="Jawa Timur" class="px-4 py-2 w-full focus:outline-none" />
         <button class="bg-cyan-500 text-white px-4 py-2">Cari</button>
     </div>
@@ -14,7 +13,7 @@
     <!-- Buttons -->
     <div class="hidden lg:flex items-center space-x-4">
         <button class="text-cyan-500 font-semibold">Masuk</button>
-        <button class="bg-cyan-500 text-white px-4 py-2 rounded-full">Daftar</button>
+        <button class="bg-cyan-500 text-white px-4 py-2 rounded-lg">Daftar</button>
     </div>
 
     <!-- Hamburger Menu -->
