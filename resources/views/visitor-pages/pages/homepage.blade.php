@@ -4,83 +4,78 @@
 
 @section('content')
 
-    {{-- Carousal Script --}}
 
-    <script>
-        // Add functionality for auto-transitioning the carousel
-        document.addEventListener("DOMContentLoaded", () => {
-            let index = 0;
-            const slides = document.querySelectorAll(".carousel-slide");
-            const totalSlides = slides.length;
 
-            setInterval(() => {
-                slides[index].classList.remove("opacity-100", "translate-x-0");
-                slides[index].classList.add("opacity-0", "translate-x-full");
+ <script>
+document.addEventListener('DOMContentLoaded', () => {
+    let currentIndex = 0;
+    const carouselWrapper = document.getElementById('carousel-wrapper');
+    const slides = carouselWrapper.children;
+    const totalSlides = slides.length;
 
-                index = (index + 1) % totalSlides;
+    // Function to move the carousel
+    function moveCarousel() {
+        // Move to the next slide by adjusting the transform property of the wrapper
+        currentIndex = (currentIndex + 1) % totalSlides;
+        carouselWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
 
-                slides[index].classList.remove("opacity-0", "translate-x-full");
-                slides[index].classList.add("opacity-100", "translate-x-0");
-            }, 5000); // 5 seconds interval
-        });
-    </script>
+    // Auto-move the carousel every 3 seconds
+    setInterval(moveCarousel, 6000);
+});
 
-    {{-- end Carousal script --}}
 
-    {{-- Carousal --}}
 
-    <div class="relative overflow-hidden w-full h-[500px]">
-        <!-- Slide 1 -->
-        <div class="carousel-slide absolute inset-0 transition-all duration-1000 transform translate-x-0 opacity-100">
-            <img src="{{ asset('assets/images/gunung-bromo.svg') }}" alt="Gunung Bromo Sunrise" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center">
-                <div class="p-12 lg:ml-20 text-left max-w-lg">
-                    <h2 class="text-white text-4xl font-bold mb-4">
-                        Menyaksikan Keajaiban Sunrise di Gunung Bromo
-                    </h2>
-                    <p class="text-white text-lg mb-6">
-                        Nikmati keindahan alam yang memukau saat matahari terbit di salah satu gunung terindah di Indonesia.
-                    </p>
-                    <a href="#" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded shadow">
-                        Selengkapnya
-                    </a>
+
+
+     </script>
+
+     {{-- end Carousal script --}}
+
+     {{-- Carousal --}}
+
+     @php
+     $carousels = [
+         [
+         'id' => 1,
+         'header' => 'Menyaksikan Keajaiban Sunrise di Gunung Bromo',
+         'description' => 'Nikmati keindahan alam yang memukau saat matahari terbit di salah satu gunung terindah di Indonesia.',
+         'image' => asset('assets/images/homepage/gunung-bromo.svg')
+         ],
+         [
+         'id' => 2,
+         'header' => 'Menikmati Keindahan Alam di Bali',
+         'description' => 'Jelajahi keindahan alam Bali dengan pemandangan pantai yang memukau.',
+         'image' => asset('assets/images/homepage/gunung-bromo.svg')
+         ],
+     ];
+     @endphp
+
+<div class="relative w-full overflow-hidden">
+    <div id="carousel-wrapper" class="flex transition-transform duration-1000 ease-in-out">
+        @foreach ($carousels as $index => $carousel)
+            <div class="carousel-slide w-full flex-shrink-0">
+                <div class="relative w-full h-[500px]">
+                    <img src="{{ $carousel['image'] }}" alt="Gunung Bromo Sunrise" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center">
+                        <div class="p-12 lg:ml-20 text-left max-w-lg">
+                            <h2 class="text-white text-4xl font-bold mb-4">
+                                {{ $carousel['header'] }}
+                            </h2>
+                            <p class="text-white text-lg mb-6">
+                                {{ $carousel['description'] }}
+                            </p>
+                            <a href="#" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded shadow">
+                                Selengkapnya
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="carousel-slide absolute inset-0 transition-all duration-1000 transform translate-x-full opacity-0">
-            <img src="https://via.placeholder.com/1920x1080" alt="Placeholder Slide" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center">
-                <div class="p-12 lg:ml-20 text-left max-w-lg">
-                    <h2 class="text-white text-4xl font-bold mb-4">Slide Kedua</h2>
-                    <p class="text-white text-lg mb-6">
-                        Ini adalah contoh deskripsi untuk slide kedua dalam carousel ini.
-                    </p>
-                    <a href="#" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded shadow">
-                        Selengkapnya
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="carousel-slide absolute inset-0 transition-all duration-1000 transform translate-x-full opacity-0">
-            <img src="https://via.placeholder.com/1920x1080?text=Another+Slide" alt="Another Slide" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center">
-                <div class="p-12 lg:ml-20 text-left max-w-lg">
-                    <h2 class="text-white text-4xl font-bold mb-4">Slide Ketiga</h2>
-                    <p class="text-white text-lg mb-6">
-                        Slide ini menampilkan gambar dan teks lain sebagai bagian dari carousel.
-                    </p>
-                    <a href="#" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded shadow">
-                        Selengkapnya
-                    </a>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
-    {{-- end of carousal --}}
+</div>
+
 
 {{-- Section pilih seleramu --}}
 @php
@@ -131,8 +126,8 @@
 
 @php
         $destinations = [
-        ['id' => 1, 'name' => 'Gunung Bromo', 'image' => asset('assets/images/homepage/cards/gunung-bromo-card.svg')],
-        ['id' => 2, 'name' => 'Candi Borobudur', 'image' => 'candi-borobudur.jpg'],
+        ['id' => 1, 'name' => 'Gunung Bromo', 'image' => asset('assets/images/homepage/cards/gunung-bromo-card.jpg')],
+        ['id' => 2, 'name' => 'Candi Borobudur', 'image' => asset('assets/images/homepage/cards/candi-borobudur-card.jpg')],
         ['id' => 3, 'name' => 'Raja Ampat', 'image' => 'raja-ampat.jpg'],
         ['id' => 4, 'name' => 'Pulau Dewata', 'image' => 'pulau-dewata.jpg'],
         ['id' => 5, 'name' => 'Labuan Bajo', 'image' => ''],
@@ -144,32 +139,38 @@
         ['id' => 11, 'name' => 'Kawah Ijen', 'image' => ''],
         ['id' => 12, 'name' => 'Gili Trawang', 'image' => ''],
 
-    ];
+];
 @endphp
 <div class="p-8">
     <div class="grid gap-6 justify-center px-9" style="grid-template-columns: repeat(auto-fit, minmax(283px, 1fr));">
         @foreach ($destinations as $destination)
           <!-- Card -->
           <div class="w-[283px] h-[326px] bg-white rounded-lg shadow-lg overflow-hidden relative">
-            <!-- Badge -->
-            <div class="absolute top-2 left-2 bg-cyan-500 text-white font-bold text-sm px-3 py-1 rounded-full">
-              {{ $destination['id'] }}
-            </div>
-            <!-- Image -->
-            <img
-              class="w-full h-full object-cover z-[-1]"
-              src="{{ $destination['image'] }}"
-              alt="{{ $destination['name'] }}">
             <!-- Content -->
-            <div class="p-4 text-center z-10">
-              <h3 class="text-lg font-semibold text-gray-800">{{ $destination['name'] }}</h3>
-              <a href="#" class="mt-3 inline-block bg-cyan-500 text-white text-sm font-medium py-2 px-4 rounded-full hover:bg-cyan-700">
+            <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent p-4 z-10">
+              <h2 class="text-3xl font-bold text-white">{!! str_replace(' ', '<br>', $destination['name']) !!}</h2>
+              <a href="#" class="mt-3 inline-block font-semibold bg-cyan-500 text-white text-xm py-1 px-16 rounded-full hover:bg-cyan-700 transition">
                 Selengkapnya
               </a>
             </div>
+
+            <!-- Badge -->
+            <div class="absolute top-5 left-5 bg-cyan-500 text-white font-bold text-sm px-3 py-1 rounded-full z-20">
+              {{ $destination['id'] }}
+            </div>
+
+            <!-- Image -->
+            <img
+              class="w-full h-full object-cover absolute top-0 left-0 z-0 hover:scale-150"
+              src="{{ $destination['image'] }}"
+              alt="{{ $destination['name'] }}"
+              style="transition: 800ms">
+
           </div>
+
         @endforeach
-      </div>
+    </div>
+
 </div>
 
 

@@ -6,9 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Default Title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="{{ asset('scripts/functions.js') }}"></script>
  <body>
+        <script>
+            var baseUrl = "{{ asset('') }}";
 
-    <header>
+        </script>
+
+<header>
         @include('visitor-pages.partials.navbar')
     </header>
 
