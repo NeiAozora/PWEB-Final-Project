@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/api/destinations', [ListDestinationController::class, 'getDestinations']);
 
 
-Route::get('/login', [LoginController::class, 'index']);
-Route::get('/register', [RegisterController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
 
 
-Route::get('/homepage', [HomepageController::class, 'index']);
+Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::get('/cari-wisata', [ListDestinationController::class, 'index']);
