@@ -12,29 +12,30 @@
         <div class="w-full md:w-1/2 p-8">
             <h2 class="text-2xl font-semibold text-gray-700 mb-6">Login dulu yuk!</h2>
             <p class="text-gray-500 mb-4">Akses lebih banyak fitur dengan login.</p>
-            <form class="space-y-4">
+            <!-- Laravel POST Form -->
+            <form method="POST" action="{{ route('login.authenticate') }}" class="space-y-4">
+                @csrf <!-- Laravel CSRF Token -->
                 <div>
                     <label for="email" class="block text-gray-600 mb-1">Email</label>
-                    <input id="email" type="email" placeholder="Masukkan Alamat Email"
+                    <input id="email" name="email" type="email" placeholder="Masukkan Alamat Email" required
                         class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
                 <div>
                     <label for="password" class="block text-gray-600 mb-1">Password</label>
-                    <input id="password" type="password" placeholder="Masukkan Password"
+                    <input id="password" name="password" type="password" placeholder="Masukkan Password" required
                         class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
                 <div class="flex items-center justify-between">
                     <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox text-blue-500">
+                        <input type="checkbox" name="remember" class="form-checkbox text-blue-500">
                         <span class="ml-2 text-sm text-gray-600">Ingat saya</span>
                     </label>
-                    <a href="#" class="text-blue-500 text-sm hover:underline">Lupa Password</a>
                 </div>
                 <button type="submit"
                     class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">Login</button>
             </form>
             <p class="text-sm text-center text-gray-500 mt-4">
-                Belum punya akun? <a href="#" class="text-blue-500 hover:underline">Daftar Sekarang</a>
+                Belum punya akun? <a href="{{ route('register') }}" class="text-blue-500 hover:underline">Daftar Sekarang</a>
             </p>
         </div>
 
@@ -42,7 +43,6 @@
         <div class="hidden md:flex w-1/2 bg-blue-50 items-center justify-center">
             <img src="{{ asset('assets/images/login-image-ilustration.svg') }}" alt="Illustration" class="w-full h-auto">
         </div>
-
     </div>
 </body>
 </html>

@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "doctrine/dbal": "^4.2",
+        "kitloong/laravel-migrations-generator": "^7.0",
         "laravel/framework": "^11.9",
         "laravel/octane": "^2.5",
         "laravel/tinker": "^2.9"

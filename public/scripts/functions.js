@@ -36,3 +36,28 @@ function formatPriceValue(value) {
     // Join the integer part with the decimal part
     return parts.join(".");
 }
+
+
+function renderPageToNewTab(htmlContent) {
+    // Open a new tab or window
+    const newTab = window.open();
+
+    // Check if the new tab opened successfully
+    if (newTab) {
+        // Write the HTML content into the new tab
+        newTab.document.open();
+        newTab.document.write(htmlContent);
+        newTab.document.close();
+    } else {
+        console.error("Unable to open a new tab. Check your browser's pop-up blocker.");
+    }
+}
+
+function isJsonString(str) {
+    try {
+      var json = JSON.parse(str);
+      return (typeof json === 'object');
+    } catch (e) {
+      return false;
+    }
+  }
