@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Helpers;
+
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
@@ -44,6 +46,11 @@ class AuthHelper
 
         $session = DB::table('sessions')->where('id', $sessionToken)->first();
         return $session !== null; // Return true if session exists, false otherwise
+    }
+
+
+    public static function isLoggedIn(): bool {
+        return false;
     }
 
 }

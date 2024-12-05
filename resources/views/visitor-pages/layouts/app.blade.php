@@ -7,7 +7,7 @@
     <title>@yield('title', 'Default Title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="{{ asset('scripts/functions.js') }}"></script>
- <body>
+ <body class="bg-gray-50">
         <script>
             var baseUrl = "{{ asset('') }}";
 

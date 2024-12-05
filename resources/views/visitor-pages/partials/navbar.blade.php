@@ -7,11 +7,45 @@
     </div>
 
     <!-- Search Bar -->
-    <div class="flex items-center border rounded-lg overflow-hidden shadow-sm flex-1 lg:mx-4 lg:w-2/3">
-        <input type="text" placeholder="Jawa Timur" class="px-4 py-2 w-full focus:outline-none" />
-        <button class="bg-cyan-500 text-white px-4 py-2">Cari</button>
-    </div>
+        <form action="/cari-wisata" method="get" id="form-search" class="flex items-center border rounded-lg overflow-hidden shadow-sm flex-1 lg:mx-4 lg:w-2/3">
+            <input id="search-input" type="text" placeholder="Cari tempat wisata ..." name="search" class="px-4 py-2 w-full focus:outline-none" />
+            <button class="bg-cyan-500 text-white px-4 py-2" id="search-btn" type="submit">Cari</button>
+        </form>
 
+    @if (\Illuminate\Support\Facades\Auth::check())
+        <!-- User Profile Icon -->
+        <div class="relative">
+            <button id="profile-button" class="flex items-center space-x-2 text-cyan-600 hover:text-cyan-800">
+                <img src="https://img.icons8.com/ios-filled/35/ffffff/user.png" alt="User Profile" class="w-10 h-10 p-1 rounded-full bg-cyan-500">
+                <span class="font-medium">User</span>
+            </button>
+
+            <!-- Popup Card -->
+            <div id="popup-card" class="fixed top-20 right-4 w-64 p-4 bg-white shadow-lg rounded-lg border border-gray-200 hidden z-50">
+                <h2 class="text-lg font-semibold text-cyan-600">User Profile</h2>
+                <p class="text-gray-600">View and manage your profile settings here.</p>
+                <ul class="mt-4 space-y-2">
+                    <li><a href="#" class="text-sm text-cyan-600 hover:underline">View Profile</a></li>
+                    <li><a href="#" class="text-sm text-cyan-600 hover:underline">Settings</a></li>
+                    <li><a href="{{ route('logout') }}" class="text-sm text-cyan-600 hover:underline">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <script>
+            // JavaScript to toggle popup visibility
+            document.addEventListener('DOMContentLoaded', () => {
+                const profileButton = document.getElementById('profile-button');
+                const popupCard = document.getElementById('popup-card');
+
+                profileButton.addEventListener('click', () => {
+                    popupCard.classList.toggle('hidden');  // Toggle visibility
+                });
+            });
+
+        </script>
+    @else
     <!-- Buttons -->
     <div class="hidden lg:flex items-center space-x-4">
         <a href="{{ route('login') }}">
@@ -21,6 +55,8 @@
             <button class="bg-cyan-500 text-white px-4 py-2 rounded-lg">Daftar</button>
         </a>
     </div>
+
+    @endif
 
     <!-- Hamburger Menu -->
     <button class="text-cyan-500 lg:hidden ml-2">

@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentPage = parseInt(urlParams.get('page')) || 1;
     const itemsPerPage = parseInt(urlParams.get('limit')) || 9;
     const searchQuery = urlParams.get('search') || '';
+    document.getElementById('form-search').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting
+    });
 
 
     const notFound = `
@@ -24,20 +27,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function fetchDestination(page = 1, search = '') {
+        // Get selected categories
+        const selectedCategories = [];
+        document.querySelectorAll('#categories-checkboxes input:checked').forEach(checkbox => {
+            selectedCategories.push(checkbox.getAttribute('data-id'));
+        });
+
+        // Get selected provinces
+        const selectedProvinces = [];
+        document.querySelectorAll('#provinces-checkboxes input:checked').forEach(checkbox => {
+            console.log(checkbox.nextElementSibling.textContent);
+            selectedProvinces.push(checkbox.nextElementSibling.textContent);
+        });
+
         injectLoader('destination-container');
+        let url = `api/destinations?page=${page}&limit=${itemsPerPage}&search=${search}&categories=${encodeURIComponent(selectedCategories.join(','))}&provinces=${encodeURIComponent(selectedProvinces.join(','))}`;
+        console.log(baseUrl + url)
+        fetch(url)
+            .then(res => {
+                let data = {}
+                // Check if response is JSON
+                try {
+                    data = res.json();
+                } catch (error) {
+                    renderPageToNewTab(res.text());  // Render in new tab and break the chain
+                    throw error;
+                }
 
-        fetch(`api/destinations?page=${page}&limit=${itemsPerPage}&search=${search}`)
-            .then(response => response.json())
+                return data;
+            })
             .then(data => {
-
                 removeLoader('destination-container');
                 updatePagination(data.current_page, data.total_pages);
                 updateDestination(data.destination);
-
             })
             .catch(error => console.error('Error fetching destination:', error));
-
     }
+
 
     function updateDestination(destination) {
         destinationContainer.innerHTML = '';
@@ -52,6 +78,11 @@ document.addEventListener('DOMContentLoaded', function () {
             <path d="M9.76121 0L12.0602 7.07548H19.4998L13.481 11.4484L15.78 18.5238L9.76121 14.151L3.74245 18.5238L6.04141 11.4484L0.0226526 7.07548H7.46225L9.76121 0Z" fill="#D9D9D9"/>
         </svg>
         `;
+
+        if (destination.lenght < 1){
+            console.log(notFound);
+            destinationContainer.insertAdjacentHTML('beforeend', notFound);
+        }
 
         destination.forEach(dest => {
             console.log(dest);
@@ -79,9 +110,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Create the destination HTML
             const destinationHTML = `
-        <div class="destination-card-container transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col" style="min-height: 403px; width: 284px;">
-                <a href="${baseUrl}destination/${dest.id}" class="no-underline text-black flex flex-col flex-1">
+        <div class="destination-card-container ">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg" style="min-height: 403px; width: 284px;">
+                <a href="${baseUrl}tempat-wisata/${dest.id}" class="no-underline text-black flex flex-col flex-1">
                     <div class="relative" style="width: 284px; height: 198px;">
                         <img src="${dest.image}" class="w-full h-full object-cover" alt="${dest.name}">
                     </div>
@@ -123,6 +154,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Insert the destination HTML into the container
             destinationContainer.insertAdjacentHTML('beforeend', destinationHTML);
         });
+
+
     }
 
     function updatePagination(currentPage, totalPages) {
@@ -175,6 +208,12 @@ document.addEventListener('DOMContentLoaded', function () {
         window.history.pushState({}, '', newUrl);
         fetchDestination(page, searchQuery);
     }
+
+    document.getElementById("search-btn").addEventListener('click', function() {
+        let query = document.getElementById("search-input").value;
+        fetchDestination(currentPage, query);
+    });
+
 
     // Initial fetch
     fetchDestination(currentPage, searchQuery);

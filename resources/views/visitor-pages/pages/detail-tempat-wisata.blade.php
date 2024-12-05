@@ -1,71 +1,143 @@
 @extends('visitor-pages.layouts.app')
 
-@section('title', 'tempat wisata')
+@section('title', $namaTempat ?? 'Nama Tempat')
 
 @section('content')
-    
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gunung Bromo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* Mengganti font default Tailwind ke Poppins */
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-  </style>
-</head>
-<body class="bg-gray-100 font-sans">
- <div class="max-w-[1800px] h-[622px] mx-auto p-6 bg-white rounded-lg shadow-md mt-[45px]">
-        <!-- Image and Content -->
-    <div class="flex flex-col md:flex-row gap-6">
-      <!-- Image -->
-      <img src="assets/images/tempat wisata/gunung-bromo.png" alt="Gunung Bromo" class="w-[659px] h-[549px] md:w-1/2 rounded-lg shadow-md">
 
-      <!-- Content -->
-      <div class="flex-1">
-        <h1 class="text-[48px] font-bold text-[#656565]">Gunung Bromo</h1>
-        <div class="flex items-center text-yellow-500 mt-2">
-          <span class="text-lg">★★★★★</span>
-          <span class="text-[#656565] text-[16px] ml-2">100 Penilaian</span>
+    <div class="w-full bg-white shadow-none border-spacing-1 border-gray-400">
+        <div class="max-w-screen-xl mx-auto flex items-center justify-between px-8 py-12 space-x-8">
+            <!-- Left Section: Image -->
+            <div class="flex-shrink-0 w-1/2">
+                <img src="https://via.placeholder.com/600x400" alt="Gunung Bromo" class="w-full h-auto object-cover rounded-lg shadow-lg">
+            </div>
+            <!-- Right Section: Details -->
+            <div class="flex flex-col w-1/2 space-y-4">
+                <h1 class="text-5xl font-semibold text-gray-600">Gunung Bromo</h1>
+
+                <!-- Rating Section -->
+                <div class="flex items-center">
+                    <span class="text-yellow-500 text-2xl">★★★★★</span>
+                    <span class="text-gray-500 ml-2 text-xl">| (100 Penilaian)</span>
+                </div>
+
+                <!-- Location Section -->
+                <div class="flex items-center text-gray-600 mt-4">
+                    <img class="w-20" src="{{ asset('assets/images/icons/location.svg') }}" alt="">
+                    <div class="">
+                        <span class="text-lg">Probolinggo, Jawa Timur</span>
+                        <a href="#" class="text-blue-500 underline mt-2 text-sm block">
+                            <img src="{{ asset('assets/images/icons/look-at-google-maps.svg') }}" alt="">
+                        </a>
+                    </div>
+
+
+                </div>
+
+                <!-- Ticket Prices Section -->
+                <div class="mt-6 space-y-2">
+                    <div class="flex items-center">
+                        <img class="mr-2" src="{{ asset('assets/images/icons/tickets.svg') }}" alt="">
+                        <h2 class="text-2xl font-semibold text-cyan-500">Harga Tiket</h2>
+                    </div>
+                    <div class="flex items-center space-x-4 text-gray-600">
+                        <!-- First Price Section -->
+                        <div class="text-lg">
+                            <span>Hari biasa</span>
+                            <br>
+                            <span class="font-bold text-cyan-500">Rp 54.000</span>
+                        </div>
+                        <div class="border-l-2 border-gray-600 h-full"><span class=" text-white">.</span></div>
+                        <!-- Second Price Section -->
+                        <div class="text-lg">
+                            <span>Hari libur</span>
+                            <br>
+                            <span class="font-bold text-cyan-500">Rp 79.000</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- WhatsApp Contact Button -->
+                <div class="mt-6 max-w-sm">
+                    <a href="https://wa.me/" class="bg-green-500 hover:bg-green-600 text-white flex items-center justify-center px-6 py-3 rounded-lg text-lg font-medium space-x-3 transition">
+                        <img class="h-6 w-6" src="{{ asset('assets/images/icons/whatsapp.svg') }}" alt="">
+                        <span>WhatsApp Pengelola</span>
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <!-- Location -->
-        <div class="flex items-center text-[#656565] text-[24px] font-semibold mt-4">
-          <img src="assets/images/tempat wisata/maps.png" alt="">
-          <span>Probolinggo, Jawa Timur</span>
+        <div class=" px-32 py-7">
+            <div class="bg-gray-100 flex justify-center items-center ">
+                <div class="bg-white shadow-md rounded-lg p-6 max-w-full">
+                  <h1 class="text-xl font-bold text-cyan-500 mb-4">Tentang Gunung Bromo</h1>
+                  <p class="text-gray-700 bg-gray-100 p-4 rounded-md mb-6">
+                    Gunung Bromo adalah gunung berapi aktif yang terletak di Jawa Timur, Indonesia, dan merupakan bagian dari Taman Nasional Bromo Tengger Semeru. Gunung ini memiliki ketinggian 2.329 meter di atas permukaan laut dan terkenal dengan kaldera luas serta lautan pasirnya yang unik. Dikelilingi oleh keindahan alam, Gunung Bromo menjadi destinasi wisata populer untuk menikmati matahari terbit, budaya suku Tengger, dan pemandangan yang memukau. Gunung ini sering menjadi lokasi upacara adat Kasada, di mana masyarakat Tengger mempersembahkan hasil bumi ke kawah Bromo sebagai bentuk syukur.
+                  </p>
+                  <h2 class="text-lg font-bold text-cyan-500 mb-3">Fasilitas Wisatawan</h2>
+                  <ul class="space-y-2">
+                    <li class="flex items-center">
+                      <svg class="w-5 h-5 text-cyan-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span class="text-gray-700">Tempat Parkir</span>
+                    </li>
+                    <li class="flex items-center">
+                      <svg class="w-5 h-5 text-cyan-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span class="text-gray-700">Musholla</span>
+                    </li>
+                    <li class="flex items-center">
+                      <svg class="w-5 h-5 text-cyan-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span class="text-gray-700">Toilet</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
         </div>
-        <a href="#" class="text-blue-500 underline mt-1 ml-20 block">Lihat di Google Maps</a>
 
-        <!-- Ticket Prices -->
-        <div class="flex items-center mt-4">
-          <img src="assets/images/tempat wisata/tickets 5.png" alt="">
-          <h2 class="text-[#00CCDD] text-[24px] font-semibold ml-3">Harga Tiket</h2>
-          {{-- <p class="text-gray-600 mt-2">Hari biasa: <span class="font-bold text-gray-800">Rp 54.000</span></p>
-          <p class="text-gray-600">Hari libur: <span class="font-bold text-gray-800">Rp 79.000</span></p> --}}
-        </div>
-
-        <!-- Whatsapp Button -->
-        {{-- <div class="mt-6">
-          <a href="https://wa.me/yourphone" class="bg-green-500 text-white px-6 py-2 rounded-lg flex items-center gap-2 shadow-lg hover:bg-green-600 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.52 3.485c-4.39-4.39-11.521-4.39-15.91 0-4.39 4.39-4.39 11.521 0 15.91 4.39 4.39 11.521 4.39 15.91 0 4.39-4.39 4.39-11.521 0-15.91zM12.048 21.957c-1.74-.148-3.417-.745-4.956-1.761l-.468-.298-3.507.906 1.004-3.447-.341-.528c-.847-1.306-1.387-2.776-1.572-4.327C2.29 8.98 2.697 6.763 3.914 5.01 5.155 3.215 6.89 2.067 8.91 1.58c1.949-.476 4.013-.383 5.897.261 1.886.644 3.576 1.858 4.888 3.402 1.299 1.526 2.133 3.422 2.421 5.466.288 2.045-.054 4.124-1.008 5.959-.952 1.836-2.431 3.373-4.276 4.387-1.844 1.014-4.01 1.499-6.201 1.402zm-2.111-13.28c-.223.051-.476.193-.751.426-.182.16-.398.457-.646.891-.156.28-.259.477-.289.555-.024.065-.066.168-.11.31-.13.41-.065.754.176 1.073.121.157.24.274.36.355.106.073.21.14.307.209.192.13.437.32.742.57.198.16.456.375.768.641.314.268.577.463.785.585.208.122.443.235.704.34.332.134.603.225.812.271.208.045.437.065.688.058.28-.011.507-.05.684-.118.133-.053.27-.123.41-.21.193-.126.321-.244.386-.355.064-.11.138-.265.209-.46.07-.194.118-.349.143-.464l.039-.179c.048-.237.031-.445-.05-.624-.055-.124-.12-.25-.197-.374-.06-.1-.117-.183-.17-.248-.11-.132-.274-.307-.494-.524-.143-.142-.295-.288-.453-.437-.284-.266-.532-.497-.746-.694-.215-.196-.406-.377-.576-.54-.17-.162-.302-.302-.395-.42-.091-.119-.184-.252-.279-.4-.094-.147-.18-.33-.26-.552-.079-.222-.114-.43-.105-.623.008-.185.032-.335.073-.45.091-.244.229-.465.416-.66.21-.222.49-.424.838-.601.371-.189.768-.307 1.19-.354.423-.047.862-.04 1.313.018.459.06.891.172 1.296.337.405.165.745.37 1.015.615.27.246.484.538.643.878.175.381.225.76.15 1.136-.076.376-.29.73-.644 1.063-.352.331-.843.619-1.474.867-.632.248-1.328.476-2.087.684-.758.208-1.476.391-2.155.548-.679.157-1.279.267-1.799.33-.519.064-.899.091-1.141.083z" />
-            </svg>
-            Whatsapp Pengelola
-          </a>
-        </div> --}}
-      </div>
     </div>
-  </div>
-  <div class="max-w-[1800px] h-[622px] mx-auto p-6 bg-white rounded-lg shadow-md mt-[45px]">
 
-  </div>
-</body>
-</html>
+    <div class="bg-white py-7 px-32">
+        <div class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-lg font-bold text-cyan-600 mb-4">Rating dan Ulasan</h2>
+          <!-- Ulasan 1 -->
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-12 h-12 bg-cyan-200 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="text-cyan-600 w-6 h-6" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold text-gray-800">Who Am I</h3>
+                <div class="flex text-yellow-400">
+                  <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+                </div>
+              </div>
+              <p class="text-gray-600 mt-1">Tempatnya sangat-sangat waw... 😁</p>
+              <a href="#" class="text-cyan-600 text-sm font-semibold mt-2 inline-block">Balas Who Am I</a>
+            </div>
+          </div>
+          <!-- Ulasan 2 -->
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-cyan-200 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="text-cyan-600 w-6 h-6" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold text-gray-800">Who Are U</h3>
+                <div class="flex text-yellow-400">
+                  <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+                </div>
+              </div>
+              <p class="text-gray-600 mt-1">Tempatnya sangat-sangat waw... 😁</p>
+              <a href="#" class="text-cyan-600 text-sm font-semibold mt-2 inline-block">Balas Who Are U</a>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 

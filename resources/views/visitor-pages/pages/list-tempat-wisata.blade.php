@@ -14,20 +14,20 @@
         <h2 class="text-lg font-bold text-cyan-500 transition-colors duration-300 hover:text-cyan-400">Filter</h2>
 
         <h3 class="text-md font-semibold mt-4 text-[#656565]">Kategori</h3>
-        <ul>
+        <ul id="categories-checkboxes">
             @foreach($categories as $category)
                 <li>
                     <label class="text-[#656565] flex items-center space-x-2">
-                        <input type="checkbox" class="w-5 h-5 border-2 border-cyan-500 rounded-sm focus:outline-none peer checked:bg-cyan-500 checked:border-cyan-500 checked:ring-2 checked:ring-white">
-                        <span>{{ $category }}</span>
+                        <input type="checkbox" data-id="{{ $category['id_kategori'] }}" class="w-5 h-5 border-2 border-cyan-500 rounded-sm focus:outline-none peer checked:bg-cyan-500 checked:border-cyan-500 checked:ring-2 checked:ring-white">
+                        <span>{{ $category['nama_kategori'] }}</span>
                     </label>
                 </li>
             @endforeach
         </ul>
 
         <h3 class="text-md font-semibold mt-4 text-cyan-500">Lokasi</h3>
-        <ul>
-            @foreach($locations as $location)
+        <ul id="provinces-checkboxes">
+            @foreach($provinces as $location)
                 <li>
                     <label class="text-[#656565] flex items-center space-x-2">
                         <input type="checkbox" class="w-5 h-5 border-2 border-cyan-500 rounded-sm focus:outline-none peer checked:bg-cyan-500 checked:border-cyan-500 checked:ring-2 checked:ring-white">
@@ -37,10 +37,30 @@
             @endforeach
         </ul>
 
-        <button class="mt-4 p-2 bg-cyan-500 text-white font-semibold rounded transition-colors duration-300 hover:bg-cyan-600">
+        <button id="btn-reset-filter" class="mt-4 p-2 bg-cyan-500 text-white font-semibold rounded transition-colors duration-300 hover:bg-cyan-600">
             Reset Filter
         </button>
     </div>
+
+    <script>
+        document.getElementById('btn-reset-filter').addEventListener('click', function() {
+            var ulCategories = document.getElementById('categories-checkboxes');
+            var ulProvinces = document.getElementById('provinces-checkboxes');
+
+            // Uncheck all checkboxes in categories-checkboxes
+            var categoryCheckboxes = ulCategories.querySelectorAll('input[type="checkbox"]');
+            categoryCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+
+            // Uncheck all checkboxes in provinces-checkboxes
+            var provinceCheckboxes = ulProvinces.querySelectorAll('input[type="checkbox"]');
+            provinceCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+        });
+
+    </script>
 
     {{-- End of Sidebar --}}
 

@@ -25,6 +25,15 @@
                     <input id="password" name="password" type="password" placeholder="Masukkan Password" required
                         class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
+                @if ($errors->any())
+                    <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4 text-red-700 rounded-md">
+                        <ul class="list-disc ml-4">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="flex items-center justify-between">
                     <label class="inline-flex items-center">
                         <input type="checkbox" name="remember" class="form-checkbox text-blue-500">

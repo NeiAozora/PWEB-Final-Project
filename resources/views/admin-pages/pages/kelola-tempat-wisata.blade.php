@@ -161,4 +161,8 @@
       </div>
     @endif
 
+<script>
+    lightSidebarKelolaWisataBtn()
+</script>
+
 @endsection

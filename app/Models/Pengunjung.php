@@ -1,15 +1,36 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Pengunjung
+ * 
+ * @property int $id
+ * @property Carbon $waktu_kunjungan
+ * @property string|null $alamat_ip
+ * @property string|null $user_agent
+ *
+ * @package App\Models
+ */
 class Pengunjung extends Model
 {
-    use HasFactory;
+	protected $table = 'pengunjung';
+	public $timestamps = false;
 
-    protected $table = 'pengunjung';
-    protected $fillable = ['alamat_ip', 'user_agent', 'waktu_kunjungan'];
-    public $timestamps = false;
+	protected $casts = [
+		'waktu_kunjungan' => 'datetime'
+	];
+
+	protected $fillable = [
+		'waktu_kunjungan',
+		'alamat_ip',
+		'user_agent'
+	];
 }

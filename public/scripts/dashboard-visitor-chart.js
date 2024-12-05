@@ -1,73 +1,82 @@
-// Update Chart Data
-function updateChart(showType, options = {}) {
+// Ensure the Chart.js library is included
+// <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+// Initialize the Chart
+let visitorChart;
+
+function initializeChart() {
+    const ctx = document.getElementById('visitorChart').getContext('2d');
+
+    visitorChart = new Chart(ctx, {
+        type: 'line', // Choose chart type: 'line', 'bar', etc.
+        data: {
+            labels: [], // Empty labels initially (we'll populate this with days of the current month)
+            datasets: [{
+                label: 'Visitors',
+                data: [],  // Empty data initially
+                borderColor: 'rgba(75, 192, 192, 1)', // Set the line color
+                fill: false // Do not fill the area under the line
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {  // For Chart.js v3+
+                    title: {
+                        display: true,
+                        text: 'Tanggal (Day of the Month)'  // Change label to reflect the days of the month
+                    }
+                },
+                y: {  // For Chart.js v3+
+                    title: {
+                        display: true,
+                        text: 'Jumlah Pengunjung'  // Change label to reflect number of visitors
+                    }
+                }
+            }
+        }
+    });
+}
+
+function updateChart() {
     fetch('/api/visitor-data', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            keySess: 'example-session-key', // Replace with actual session key if needed
-            showType: showType,
-            option: options,
+            keySess: 'example-session-key',
         }),
     })
-    .then(response => {
+    .then(response => response.text())
+    .then(text => {
         // Check if response is JSON
-        return response.text().then(text => {
-            if (isJsonString(text)) {
-                return response;  // Continue processing if it's JSON
-            } else {
-                renderPageToNewTab(text);  // Render in new tab and break the chain
-                return; // Break out of further processing
-            }
-        });
-    })
-    .then(response => {
-        if (!response) {
-            // If there's no response, stop processing
-            return;
+        if (isJsonString(text)) {
+            return JSON.parse(text);  // Parse JSON if it is JSON
+        } else {
+            renderPageToNewTab(text);  // Render in new tab and break the chain
+            throw new Error('Response is not JSON');
         }
-        return response.json();
     })
     .then(data => {
-        if (data) {
-            // Update chart labels and data
-            visitorChart.data.labels = data.labels;
-            visitorChart.data.datasets[0].data = data.data;
-            visitorChart.update();
+        if (data && data.label && data.data) {
+            if (visitorChart) {
+                // Update chart labels and data
+                visitorChart.data.labels = data.label;  // Labels will be the days of the month
+                visitorChart.data.datasets[0].data = data.data;
+                visitorChart.update();
+            } else {
+                console.error("visitorChart is not defined.");
+            }
+        } else {
+            console.error("Data format is invalid:", data);
         }
     })
     .catch(error => console.error('Error fetching data:', error));
 }
 
-
-// Event Listener for Filter
-document.getElementById('filter-select').addEventListener('change', (e) => {
-    const selectedFilter = e.target.value;
-
-    if (selectedFilter === 'bulan') {
-        document.getElementById('month-dropdown-container').classList.remove('hidden');
-        document.getElementById('year-dropdown-container').classList.add('hidden');
-    } else if (selectedFilter === 'tahun') {
-        document.getElementById('year-dropdown-container').classList.remove('hidden');
-        document.getElementById('month-dropdown-container').classList.add('hidden');
-    } else {
-        document.getElementById('month-dropdown-container').classList.add('hidden');
-        document.getElementById('year-dropdown-container').classList.add('hidden');
-    }
-
-    // Fetch Data for the Selected Filter
-    updateChart(selectedFilter);
-});
-
-// Event Listener for Month Dropdown
-document.getElementById('month-select').addEventListener('change', (e) => {
-    const selectedMonth = parseInt(e.target.value);
-    updateChart('month', { month: selectedMonth });
-});
-
-// Event Listener for Year Dropdown
-document.getElementById('year-select').addEventListener('change', (e) => {
-    const selectedYear = parseInt(e.target.value);
-    updateChart('year', { year: selectedYear });
+// Initialize chart after DOM content is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initializeChart();  // Initialize the chart
+    updateChart();      // Fetch and update chart data
 });
