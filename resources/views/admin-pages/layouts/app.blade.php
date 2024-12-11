@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('scripts/functions.js') }}"></script>
+    <script src="{{ asset('bundle/datatable/simple-datatables.js') }}" type="module"></script>
+    <link rel="stylesheet" href="{{ asset('bundle/datatable/style.css') }}">
 </head>
     <body class="bg-gray-100">
     <!-- Wrapper that contains sidebar and right side -->
@@ -16,12 +18,13 @@
         @include('admin-pages.partials.sidebar')
 
         <!-- Right Side -->
-        <div id="right-side" class="flex-1 bg-white p-6 transition-all duration-300 ease-in-out ml-64 mr-auto w-max">
+        <div id="right-side" class="flex-1 bg-white p-6 transition-all duration-300 ease-in-out ml-64 mr-auto w-max h-screen overflow-y-auto">
             {{-- Top Bar --}}
             @include('admin-pages.partials.topbar')
             {{-- Content --}}
             @yield('content')
         </div>
+
     </div>
 
     @include('admin-pages.partials.footer')

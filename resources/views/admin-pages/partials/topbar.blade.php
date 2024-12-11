@@ -33,7 +33,7 @@
                 <ul class="mt-4 space-y-2">
                     <li><a href="#" class="text-sm text-cyan-600 hover:underline">View Profile</a></li>
                     <li><a href="#" class="text-sm text-cyan-600 hover:underline">Settings</a></li>
-                    <li><a href="#" class="text-sm text-cyan-600 hover:underline">Logout</a></li>
+                    <li><a href="{{ route('logout') }}" class="text-sm text-cyan-600 hover:underline">Logout</a></li>
                 </ul>
             </div>
         </div>

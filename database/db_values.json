@@ -21,6 +21,19 @@
   {"id_tempat_wisata": 19, "nama": "Gunung Semeru", "deskripsi": "Gunung tertinggi di Pulau Jawa, terkenal dengan Ranu Kumbolo.", "link_gmaps": "https://maps.google.com/?cid=11246848284834697044"},
   {"id_tempat_wisata": 20, "nama": "Taman Nasional Way Kambas", "deskripsi": "Taman nasional di Lampung yang terkenal dengan gajah liar.", "link_gmaps": "https://maps.google.com/?cid=5495072344890573219"}
 ],
+
+"ulasan": [
+{
+    "id_ulasan" : 1,
+    "nilai_rating" : 4,
+    "isi_komentar" : "Pantainya bagus",
+    "id_tempat_wisata" : 1,
+    "id_pengguna" : 1,
+    "id_ulasan_yg_dibalas" : null
+
+}
+],
+
   "kategori": [
     {"id_kategori": 1, "nama_kategori": "Pantai"},
     {"id_kategori": 2, "nama_kategori": "Gunung"},

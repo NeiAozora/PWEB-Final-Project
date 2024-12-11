@@ -15,6 +15,12 @@
         <img src="https://img.icons8.com/ios-filled/24/ffffff/chat.png" alt="Kelola Ulasan Icon" class="mr-3">
         <span class="font-medium">Kelola Ulasan</span>
         </a>
+        @if (\App\Helpers\AuthHelper::isSuperAdmin())
+            <a href="/kelola-admin" class="flex items-center px-4 py-3 mb-4 hover:bg-cyan-400 rounded-md" id="kelola-ulasan-sidebar-btn">
+                <img src="https://img.icons8.com/ios-filled/24/ffffff/user.png" alt="Kelola Ulasan Icon" class="mr-3">
+                <span class="font-medium">Kelola Admin</span>
+            </a>
+        @endif
     </nav>
     <div class="mt-auto">
         <a href="{{ route('logout') }}" class="flex items-center px-4 py-3 hover:bg-cyan-400 rounded-md">

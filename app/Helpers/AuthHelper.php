@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
@@ -51,6 +52,21 @@ class AuthHelper
 
     public static function isLoggedIn(): bool {
         return false;
+    }
+
+    public static function isSuperAdmin(): bool
+    {
+        return Auth::check() && Auth::user()->id_role == 1;
+    }
+
+    public static function isAdmin(): bool
+    {
+        return Auth::check() && Auth::user()->id_role == 2;
+    }
+
+    public static function isAdminOrSuperAdmin(): bool
+    {
+        return Auth::check() && in_array(Auth::user()->id_role, [1, 2]);
     }
 
 }

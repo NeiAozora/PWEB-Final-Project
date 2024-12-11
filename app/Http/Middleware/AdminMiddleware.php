@@ -19,8 +19,9 @@ class AdminMiddleware
         $user = Auth::user();
 
         // Jika user tidak login atau tidak memiliki role yang sesuai
-        if (!$user || !in_array($user->role_id, $roles)) {
-            abort(403, 'Unauthorized access.');
+        if (!$user || !in_array($user->id_role, $roles)) {
+            // abort(403, 'Unauthorized access.');
+            return redirect(route('login'));
         }
 
 
