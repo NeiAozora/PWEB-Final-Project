@@ -56,7 +56,7 @@ class TempatWisata extends Model
 
 	public function kategori_wisata()
 	{
-		return $this->hasMany(Kategoriwisata::class, 'id_tempat_wisata');
+		return $this->hasMany(KategoriWisata::class, 'id_tempat_wisata');
 	}
 
 	public function sosial_media()

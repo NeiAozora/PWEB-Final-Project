@@ -35,6 +35,6 @@ class Kategoriwisata extends Model
 
 	public function tempat_wisata()
 	{
-		// return $this->belongsTo(TempatWisata::class, 'id_tempat_wisata'); // force
+		return $this->belongsTo(TempatWisata::class, 'id_tempat_wisata'); // force
 	}
 }
