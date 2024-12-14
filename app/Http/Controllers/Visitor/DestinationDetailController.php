@@ -17,7 +17,6 @@ class DestinationDetailController extends Controller
         'kategori_wisata.kategori',
         'fasilitas',
         'ulasan.pengguna', // Direct relationship
-        // 'ulasan.ulasans.pengguna', // Recursive relationship with pengguna
         'tipe_tiket.hari',
     ]);
 

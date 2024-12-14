@@ -38,6 +38,8 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
+    
+
     public function logout(Request $request)
     {
         Auth::logout(); // Logs the user out of the application

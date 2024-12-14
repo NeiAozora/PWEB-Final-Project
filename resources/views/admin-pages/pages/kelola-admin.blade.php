@@ -13,7 +13,7 @@
     </div>
 
 
-    <table id="admins-table" class="table w-full text-sm">
+    <table id="data-table" class="table w-full text-sm">
         <thead class="bg-blue-600 text-white">
             <tr>
                 <th class="p-2 align-middle border">#</th>
@@ -66,5 +66,5 @@
 </div>
 
 
-        <script src="{{ asset('scripts/manage-admin-tables.js') }}" type="module"></script>
+        <script src="{{ asset('scripts/data-tables.js') }}" type="module"></script>
 @endsection

@@ -6,10 +6,12 @@
 
 <div class="w-full bg-white shadow-none border-spacing-1 border-gray-400">
     <div class="max-w-screen-xl mx-auto flex items-center justify-between px-8 py-12 space-x-8">
-        <!-- Left Section: Image -->
+        <!-- Image Section -->
         <div class="flex-shrink-0 w-1/2 over" style="width: 600px; height: 400px">
-            <img src="{{ asset($destination->gambar_tempat_wisata->first()['url_gambar']) }}" alt="{{ $destination->nama }}" class="w-full h-full object-cover rounded-lg shadow-lg">
+            <img id="destinationImage" src="{{ asset($destination->gambar_tempat_wisata->first()['url_gambar']) }}" alt="{{ $destination->nama }}" class="w-full h-full object-cover rounded-lg shadow-lg">
         </div>
+
+
 
         <!-- Right Section: Details -->
         <div class="flex flex-col w-1/2 space-y-4">
@@ -117,6 +119,65 @@
     <div class="bg-white py-7 px-32">
         <div class="bg-white rounded-lg shadow p-6">
             <h2 class="text-lg font-bold text-cyan-600 mb-4">Rating dan Ulasan</h2>
+            @if (\Illuminate\Support\Facades\Auth::check())
+            @php
+                // Check if the user has already posted a review
+                $userHasReviewed = $destination->ulasan->contains(function ($ulasan) {
+                    return $ulasan->id_pengguna === \Illuminate\Support\Facades\Auth::user()->id_pengguna;
+                });
+            @endphp
+            <div id="comment-section" class="mb-6">
+                @if (!$userHasReviewed)
+                    <button id="tambah-ulasan" class="text-cyan-600  px-4 py-2 rounded-lg hover:bg-cyan-600 hover:text-white mb-4">
+                        Tambah Ulasan
+                    </button>
+                    <div id="comment-form" class="flex flex-col gap-4 hidden">
+                        <div class="flex items-center gap-4">
+                            <img
+                                src="{{ empty(\Illuminate\Support\Facades\Auth::user()->foto_profil) ? 'https://img.icons8.com/ios-filled/35/ffffff/user.png' : \Illuminate\Support\Facades\Auth::user()->foto_profil }}"
+                                alt="User  Profile"
+                                class="w-12 h-12 p-1 rounded-full bg-cyan-500">
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">
+                                    {{ \Illuminate\Support\Facades\Auth::user()->nama_depan . ' ' . \Illuminate\Support\Facades\Auth::user()->nama_belakang }}
+                                </p>
+                                <form action="" method="post"></form>
+                                <div class="block">
+                                    <div class="flex">
+                                        <span class="star" data-value="1">
+                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                        </span>
+                                        <span class="star" data-value="2">
+                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                        </span>
+                                        <span class="star" data-value="3">
+                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                        </span>
+                                        <span class="star" data-value="4">
+                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                        </span>
+                                        <span class="star" data-value="5">
+                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                        </span>
+                                    </div>
+
+                                    <input type="hidden" id="rating" name="rating" value="0">
+                                </div>
+                                <input
+                                    type="text"
+                                    aria-label="Isi komentar"
+                                    placeholder="Tulis komentar anda di sini..."
+                                    class="w-full border-b focus:outline-none focus:border-cyan-600">
+                            </div>
+                        </div>
+
+                    </div>
+                @else
+                    <p class="text-gray-600 mb-4">Anda sudah memberikan ulasan untuk destinasi ini.</p>
+                @endif
+            </div>
+            @endif
+
             @foreach ($destination->ulasan as $ulasan)
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-12 h-12 bg-cyan-200 rounded-full flex items-center justify-center">
@@ -155,14 +216,58 @@
                         </div>
 
                         <p class="text-gray-600 mt-1">{{ $ulasan->isi_komentar }}</p>
-                        {{-- @if ($ulasan->id_ulasan_yg_dibalas)
-                            <a href="#" class="text-cyan-600 text-sm font-semibold mt-2 inline-block">Balas {{ $ulasan->pengguna['nama_depan'] . " " . $ulasan->pengguna['nama_belakang'] }}</a>
-                        @endif --}}
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
+
+{{-- Script tambah ulasan --}}
+<script>
+    document.querySelector('#tambah-ulasan').addEventListener('click', () => {
+        const commentForm = document.getElementById('comment-form');
+        commentForm.classList.toggle('hidden');
+        // Check if the class list has 'hidden', then add a 'text-white' class, else remove the class
+        if (commentForm.classList.contains('hidden')) {
+            commentForm.classList.add('text-white');
+            commentForm.classList.add('bg-cyan-600');
+        } else {
+            commentForm.classList.remove('bg-cyan-600');
+            commentForm.classList.remove('text-white');
+        }
+    });
+</script>
+
+
+{{-- Script klik bintang --}}
+<script>
+    const stars = document.querySelectorAll('.star');
+    const ratingInput = document.getElementById('rating');
+
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const value = star.getAttribute('data-value');
+            ratingInput.value = value;
+
+            // Update the star display
+            stars.forEach(s => {
+                if (s.getAttribute('data-value') <= value) {
+                    s.innerHTML = '<img src="{{ asset('assets/images/icons/yellow-star.svg') }}" alt="Star" class="w-5 h-5">';
+                } else {
+                    s.innerHTML = '<img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Gray Star" class="w-5 h-5">';
+                }
+            });
+        });
+    });
+</script>
+
+
+<style>
+    .star {
+        cursor: pointer;
+    }
+</style>
+
 </div>
 
 

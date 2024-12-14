@@ -66,7 +66,7 @@ function handleResize() {
 }
 
 // Attach event listener to window resize
-window.addEventListener("resize", handleResize);
+// window.addEventListener("resize", handleResize);
 
 // Call handleResize on initial load to apply proper layout
 // handleResize();

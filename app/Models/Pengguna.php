@@ -67,7 +67,7 @@ class Pengguna extends Authenticatable
         return $this->belongsTo(Role::class, 'id_role');
     }
 
-    public function ulasans()
+    public function ulasan()
     {
         return $this->hasMany(Ulasan::class, 'id_pengguna');
     }

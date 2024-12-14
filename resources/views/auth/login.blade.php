@@ -25,6 +25,11 @@
                     <input id="password" name="password" type="password" placeholder="Masukkan Password" required
                         class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
+                @if (session('success'))
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-4 text-green-700 rounded-md">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 @if ($errors->any())
                     <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4 text-red-700 rounded-md">
                         <ul class="list-disc ml-4">
