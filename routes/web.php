@@ -22,6 +22,9 @@ Route::get('/cari-wisata', [ListDestinationController::class, 'index']); // Cari
 Route::get('/tempat-wisata/{id}', [DestinationDetailController::class, 'index']); // Detail tempat wisata
 Route::get('/api/destinations', [ListDestinationController::class, 'getDestinations']); // API untuk mendapatkan daftar destinasi
 Route::post('/api/visitor-data', [VisitorController::class, 'getVisitorData']); // API untuk mendapatkan data pengunjung
+Route::get('/tentangkami',function(){
+return view('visitor-pages.pages.tentangkami');
+} );
 
 // Route Auth (Middleware Guest)
 Route::middleware(GuestMiddleware::class)->group(function(){
