@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KelolaAdminController;
+use App\Http\Controllers\Admin\ManageComments;
 use App\Http\Controllers\Admin\ManageDestinations;
 use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Authentication\LoginController;
@@ -46,15 +47,17 @@ Route::middleware('auth')->group(function(){
 Route::middleware(MustAdminsMiddleware::class)->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard'); // Dashboard Admin
     Route::get('/admin/kelola-wisata', [ManageDestinations::class, 'index'])->name('admin.manage.destination'); // Kelola tempat wisata
+    Route::get('/admin/kelola-ulasan', [ManageComments::class, 'index'])->name('admin.manage.comment'); // Kelola ulasan
     Route::get('/admin/tempat-wisata/{id}/ubah', [ManageDestinations::class, 'indexEditDestination'])->name('destination.edit.show'); // Ubah tempat wisata
     Route::get('/admin/tempat-wisata/tambah', [ManageDestinations::class, 'indexAddDestination'])->name('destination.add.show'); // Tambah tempat wisata
 
+    Route::delete('/admin/kelola-ulasan/{id}/hapus', [ManageComments::class, 'deleteComment'])->name('comment.destroy'); // Hapus tempat wisata
     Route::delete('/admin/tempat-wisata/{id}/hapus', [ManageDestinations::class, 'deleteDestination'])->name('destination.destroy'); // Hapus tempat wisata
     Route::post('/admin/tempat-wisata/tambah', [ManageDestinations::class, 'storeDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
     Route::post('/admin/tempat-wisata/ubah', [ManageDestinations::class, 'updateDestination'])->name('destination.update'); // Proses penyimpanan data tempat wis
 });
 
-// Route Manajemen Admin (Middleware Admin dengan level akses tertentu)
+// Route Manajemen Admin (Middleware Admin dengan level akses tert  entu)
 Route::middleware(AdminMiddleware::class . ":1")->group(function(){
     Route::get('/kelola-admin', [KelolaAdminController::class, 'index'])->name('admin.manage'); // Kelola Admin
     Route::get('/kelola-admin/ubah/{id}', [KelolaAdminController::class, 'indexEditAdmin'])->name('admin.edit.show'); // Ubah admin

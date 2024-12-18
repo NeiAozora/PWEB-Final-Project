@@ -29,8 +29,6 @@ class ManageDestinations extends Controller
             ];
         });
 
-
-
         return view('admin-pages.pages.kelola-tempat-wisata', ['destinations' => $destinations]);
     }
 
@@ -54,7 +52,7 @@ class ManageDestinations extends Controller
         if (empty($destination->toArray())){
             return back(404);
         }
-
+        
         // dd($destination);
 
         return view('admin-pages.pages.ubah-edit-tempat-wisata', ['isEditMode' => true, 'destination' => $destination[0]]);
