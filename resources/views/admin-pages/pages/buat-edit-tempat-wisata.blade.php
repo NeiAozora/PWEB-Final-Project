@@ -86,7 +86,7 @@
                                value="{{ old('provinsi', $isEditMode ? $destination->alamat->provinsi : '') }}"
                                required />
                     </div>
-                    <div>
+                    <div>   
                         <label class="block text-gray-700 font-semibold mb-1">Kabupaten</label>
                         <input name="kabupaten"
                                placeholder="Isi Kabupaten"

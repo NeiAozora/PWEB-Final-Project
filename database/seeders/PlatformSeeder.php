@@ -15,19 +15,19 @@ class PlatformSeeder extends Seeder
     {
         DB::table('platform_sosial_media')->insert([
             [
-                'nama_plaform' => 'Whatsapp'
+                'nama_platform' => 'Whatsapp'
             ],
             [
-                'nama_plaform' => 'Instagram'
+                'nama_platform' => 'Instagram'
             ],
             [
-                'nama_plaform' => 'Tiktok'
+                'nama_platform' => 'Tiktok'
             ],
             [
-                'nama_plaform' => 'Youtube'
+                'nama_platform' => 'Youtube'
             ],
             [
-                'nama_plaform' => 'Website'
+                'nama_platform' => 'Website'
             ],
         ]);
     }

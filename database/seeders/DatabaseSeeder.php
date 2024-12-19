@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PenggunaSeeder::class,
             PengunjungSeeder::class,
+            PlatformSeeder::class,
             TempatWisataAndTheBoysSeeder::class,
         ]);
     }

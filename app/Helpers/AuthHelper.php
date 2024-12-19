@@ -69,4 +69,10 @@ class AuthHelper
         return Auth::check() && in_array(Auth::user()->id_role, [1, 2]);
     }
 
+    public static function isDasboardRequired(): bool
+    {
+        return Auth::check() && in_array(Auth::user()->id_role, [1, 2, 3]);
+    }
+
+
 }

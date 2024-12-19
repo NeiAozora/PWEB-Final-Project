@@ -5,16 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Ulasan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ManageComments extends Controller
 {
     public function index(Request $request){
 
-        $comments = Ulasan::query()
+        $query = Ulasan::query()
         ->with([
             'pengguna',
             'tempat_wisata', 
-        ])->get();
+        ]);
+
+        
+        if(Auth::user()->id_role == 3){
+            $query->where('id_pengguna', Auth::user()->id_pengguna);
+        }
+
+        $comments  = $query->get();
 
         $comments =  $comments->map(function ($comment) use ($comments) {
 

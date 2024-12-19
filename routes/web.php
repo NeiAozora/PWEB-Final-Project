@@ -65,7 +65,7 @@ Route::middleware(MustAdminsMiddleware::class)->group(function () {
 
     Route::delete('/admin/kelola-ulasan/{id}/hapus', [ManageComments::class, 'deleteComment'])->name('comment.destroy'); // Hapus tempat wisata
     Route::delete('/admin/tempat-wisata/{id}/hapus', [ManageDestinations::class, 'deleteDestination'])->name('destination.destroy'); // Hapus tempat wisata
-    Route::post('/admin/tempat-wisata/tambah', [ManageDestinations::class, 'storeDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
+    Route::post('/admin/tempat-wisata/tambah', [DestinationController::class, 'createDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
     Route::post('/admin/tempat-wisata/ubah', [ManageDestinations::class, 'updateDestination'])->name('destination.update'); // Proses penyimpanan data tempat wis
 });
 

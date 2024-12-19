@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\TempatWisata;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ManageDestinations extends Controller
 {
@@ -14,8 +15,13 @@ class ManageDestinations extends Controller
         ->with([
             'alamat',
             'gambar_tempat_wisata',
-        ])->get();
+        ]);
 
+        if(Auth::user()->id_role == 3){
+            $destinations->where('id_pengguna', Auth::user()->id_pengguna);
+        }
+
+        $destinations = $destinations->get();
         $destinations =  $destinations->map(function ($destination) {
 
             $gambar = optional($destination->gambar_tempat_wisata->first())->url_gambar ?? 'https://placehold.co/286x198.png?text=No+Image';
@@ -47,20 +53,24 @@ class ManageDestinations extends Controller
             'tipe_tiket.hari',
         ]);
 
+        if(Auth::user()->id_role == 3){
+            $query->where('id_pengguna', Auth::user()->id_pengguna);
+        }
+
         $destination = $query->where('id_tempat_wisata', $id)->get();
 
         if (empty($destination->toArray())){
             return back(404);
         }
-        
+
         // dd($destination);
 
-        return view('admin-pages.pages.ubah-edit-tempat-wisata', ['isEditMode' => true, 'destination' => $destination[0]]);
+        return view('admin-pages.pages.buat-edit-tempat-wisata', ['isEditMode' => true, 'destination' => $destination[0]]);
     }
 
 
     public function indexAddDestination(Request $request){
-        return view('admin-pages.pages.ubah-edit-tempat-wisata', ['isEditMode' => false]);
+        return view('admin-pages.pages.buat-edit-tempat-wisata', ['isEditMode' => false]);
 
     }
 
