@@ -29,8 +29,9 @@
     "isi_komentar" : "Pantainya bagus",
     "id_tempat_wisata" : 1,
     "id_pengguna" : 1,
-    "id_ulasan_yg_dibalas" : null
-
+    "id_ulasan_yg_dibalas" : null,
+    "created_at": "2023-10-05 12:00:00",
+    "updated_at": "2023-10-05 12:00:00"
 }
 ],
 
@@ -107,27 +108,228 @@
     {"id_fasilitas": 40, "nama_fasilitas": "Taman", "id_tempat_wisata": 20}
   ],
 "alamat": [
-  {"id_alamat": 1, "id_tempat_wisata": 1, "jalan": "Jl. Pantai Kuta", "kota": "Kuta", "provinsi": "Bali"},
-  {"id_alamat": 2, "id_tempat_wisata": 2, "jalan": "Jl. Bromo", "kota": "Probolinggo", "provinsi": "Jawa Timur"},
-  {"id_alamat": 3, "id_tempat_wisata": 3, "jalan": "", "kota": "Magelang", "provinsi": "Jawa Tengah"},
-  {"id_alamat": 4, "id_tempat_wisata": 4, "jalan": "Jl. Raya Taman Mini", "kota": "Jakarta Timur", "provinsi": "Jakarta"},
-  {"id_alamat": 5, "id_tempat_wisata": 5, "jalan": "", "kota": "Labuan Bajo", "provinsi": "Flores, NTT"},
-  {"id_alamat": 6, "id_tempat_wisata": 6, "jalan": "Jl. Parangtritis", "kota": "Yogyakarta", "provinsi": "Yogyakarta"},
-  {"id_alamat": 7, "id_tempat_wisata": 7, "jalan": "Jl. Danau Toba", "kota": "", "provinsi": "Sumatera Utara"},
-  {"id_alamat": 8, "id_tempat_wisata": 8, "jalan": "Jl. Rinjani", "kota": "Lombok", "provinsi": "NTB"},
-  {"id_alamat": 9, "id_tempat_wisata": 9, "jalan": "", "kota": "Tanjung Tinggi", "provinsi": "Belitung"},
-  {"id_alamat": 10, "id_tempat_wisata": 10, "jalan": "Jl. Prambanan", "kota": "Yogyakarta", "provinsi": "Yogyakarta"},
-  {"id_alamat": 11, "id_tempat_wisata": 11, "jalan": "", "kota": "Banyuwangi", "provinsi": "Jawa Timur"},
-  {"id_alamat": 12, "id_tempat_wisata": 12, "jalan": "", "kota": "", "provinsi": "Raja Ampat, Papua Barat"},
-  {"id_alamat": 13, "id_tempat_wisata": 13, "jalan": "", "kota": "Bukit Lawang", "provinsi": "Sumatera Utara"},
-  {"id_alamat": 14, "id_tempat_wisata": 14, "jalan": "", "kota": "Taman Nasional Ujung Kulon", "provinsi": "Banten"},
-  {"id_alamat": 15, "id_tempat_wisata": 15, "jalan": "", "kota": "Labuan Bajo", "provinsi": "Flores, NTT"},
-  {"id_alamat": 16, "id_tempat_wisata": 16, "jalan": "", "kota": "Manado", "provinsi": "Sulawesi Utara"},
-  {"id_alamat": 17, "id_tempat_wisata": 17, "jalan": "", "kota": "Jakarta", "provinsi": "Jakarta"},
-  {"id_alamat": 18, "id_tempat_wisata": 18, "jalan": "", "kota": "Pulau Komodo", "provinsi": "NTT"},
-  {"id_alamat": 19, "id_tempat_wisata": 19, "jalan": "Jl. Semeru", "kota": "Malang", "provinsi": "Jawa Timur"},
-  {"id_alamat": 20, "id_tempat_wisata": 20, "jalan": "", "kota": "Way Kambas", "provinsi": "Lampung"}
-],
+  {
+    "id_alamat": 1,
+    "id_tempat_wisata": 1,
+    "jalan": "Jl. Pantai Kuta",
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Kuta",
+    "kota": "Kuta",
+    "kabupaten": "Badung",
+    "provinsi": "Bali"
+  },
+  {
+    "id_alamat": 2,
+    "id_tempat_wisata": 2,
+    "jalan": "Jl. Bromo",
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Sukapura",
+    "kota": "Probolinggo",
+    "kabupaten": "Probolinggo",
+    "provinsi": "Jawa Timur"
+  },
+  {
+    "id_alamat": 3,
+    "id_tempat_wisata": 3,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Magelang Selatan",
+    "kota": "Magelang",
+    "kabupaten": "Magelang",
+    "provinsi": "Jawa Tengah"
+  },
+  {
+    "id_alamat": 4,
+    "id_tempat_wisata": 4,
+    "jalan": "Jl. Raya Taman Mini",
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Cipayung",
+    "kota": "Jakarta Timur",
+    "kabupaten": null,
+    "provinsi": "Jakarta"
+  },
+  {
+    "id_alamat": 5,
+    "id_tempat_wisata": 5,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Komodo",
+    "kota": "Labuan Bajo",
+    "kabupaten": "Manggarai Barat",
+    "provinsi": "Flores, NTT"
+  },
+  {
+    "id_alamat": 6,
+    "id_tempat_wisata": 6,
+    "jalan": "Jl. Parangtritis",
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Kretek",
+    "kota": "Yogyakarta",
+    "kabupaten": "Bantul",
+    "provinsi": "Yogyakarta"
+  },
+  {
+    "id_alamat": 7,
+    "id_tempat_wisata": 7,
+    "jalan": "Jl. Danau Toba",
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Simanindo",
+    "kota": null,
+    "kabupaten": "Simalungun",
+    "provinsi": "Sumatera Utara"
+  },
+  {
+    "id_alamat": 8,
+    "id_tempat_wisata": 8,
+    "jalan": "Jl. Rinjani",
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Sembalun",
+    "kota": "Lombok",
+    "kabupaten": "Lombok Timur",
+    "provinsi": "NTB"
+  },
+  {
+    "id_alamat": 9,
+    "id_tempat_wisata": 9,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Sijuk",
+    "kota": "Tanjung Tinggi",
+    "kabupaten": "Belitung",
+    "provinsi": "Belitung"
+  },
+  {
+    "id_alamat": 10,
+    "id_tempat_wisata": 10,
+    "jalan": "Jl. Prambanan",
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Prambanan",
+    "kota": "Yogyakarta",
+    "kabupaten": "Sleman",
+    "provinsi": "Yogyakarta"
+  },
+  {
+    "id_alamat": 11,
+    "id_tempat_wisata": 11,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Licin",
+    "kota": "Banyuwangi",
+    "kabupaten": "Banyuwangi",
+    "provinsi": "Jawa Timur"
+  },
+  {
+    "id_alamat": 12,
+    "id_tempat_wisata": 12,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": null,
+    "kota": null,
+    "kabupaten": null,
+    "provinsi": "Raja Ampat, Papua Barat"
+  },
+  {
+    "id_alamat": 13,
+    "id_tempat_wisata": 13,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Bahorok",
+    "kota": "Bukit Lawang",
+    "kabupaten": "Langkat",
+    "provinsi": "Sumatera Utara"
+  },
+  {
+    "id_alamat": 14,
+    "id_tempat_wisata": 14,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Sumur",
+    "kota": "Taman Nasional Ujung Kulon",
+    "kabupaten": "Pandeglang",
+    "provinsi": "Banten"
+  },
+  {
+    "id_alamat": 15,
+    "id_tempat_wisata": 15,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Komodo",
+    "kota": "Labuan Bajo",
+    "kabupaten": "Manggarai Barat",
+    "provinsi": "Flores, NTT"
+  },
+  {
+    "id_alamat": 16,
+    "id_tempat_wisata": 16,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Bunaken",
+    "kota": "Manado",
+    "kabupaten": "Minahasa Utara",
+    "provinsi": "Sulawesi Utara"
+  },
+  {
+    "id_alamat": 17,
+    "id_tempat_wisata": 17,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Kelapa Gading",
+    "kota": "Jakarta",
+    "kabupaten": null,
+    "provinsi": "Jakarta"
+  },
+  {
+    "id_alamat": 18,
+    "id_tempat_wisata": 18,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Komodo",
+    "kota": "Pulau Komodo",
+    "kabupaten": "Manggarai Barat",
+    "provinsi": "NTT"
+  },
+  {
+    "id_alamat": 19,
+    "id_tempat_wisata": 19,
+    "jalan": "Jl. Semeru",
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Senduro",
+    "kota": "Malang",
+    "kabupaten": "Malang",
+    "provinsi": "Jawa Timur"
+  },
+  {
+    "id_alamat": 20,
+    "id_tempat_wisata": 20,
+    "jalan": null,
+    "dusun": null,
+    "desa": null,
+    "kecamatan": "Way Kambas",
+    "kota": "Lampung",
+    "kabupaten": "Lampung Timur",
+    "provinsi": "Lampung"
+  }
+]
+,
   "gambar_tempat_wisata": [
     {"id_gambar_tempat_wisata": 1, "id_tempat_wisata": 1, "url_gambar": "storage/pantai-kuta.jpg"},
     {"id_gambar_tempat_wisata": 2, "id_tempat_wisata": 2, "url_gambar": "https://cdn1-production-images-kly.akamaized.net/874X9iSEdHPQd1YP1PSv_GiMz60=/1280x720/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4556165/original/055409600_1693311908-000_HKG2004041760543.jpg"},

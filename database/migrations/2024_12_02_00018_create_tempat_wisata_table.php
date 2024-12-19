@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama', 160);
             $table->text('deskripsi')->nullable();
             $table->string('link_gmaps', 512);
+            $table->bigInteger('id_pengguna')->index('tempat_wisata_pengguna_fk')->nullable();
         });
     }
 

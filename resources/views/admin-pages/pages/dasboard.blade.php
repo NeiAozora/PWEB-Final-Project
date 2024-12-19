@@ -11,7 +11,7 @@
         </div>
         <div class="block text-center">
             <h5 class="text-sm font-semibold text-cyan-600">Komentar Baru</h5>
-            <h1 class="text-3xl font-bold text-cyan-800">99</h1>
+            <h1 class="text-3xl font-bold text-cyan-800">{{ $totalUlasan }}</h1>
         </div>
     </div>
 
@@ -21,8 +21,8 @@
             <img src="{{ asset('assets/images/icons/thumb-with-stars.svg') }}" alt="">
         </div>
         <div class="block text-center">
-            <h5 class="text-sm font-semibold text-cyan-600">Ulasan Baru</h5>
-            <h1 class="text-3xl font-bold text-cyan-800">99</h1>
+            <h5 class="text-sm font-semibold text-cyan-600">Ulasan Baru Hari ini</h5>
+            <h1 class="text-3xl font-bold text-cyan-800">{{ $totalUlasanToday }}</h1>
         </div>
     </div>
 

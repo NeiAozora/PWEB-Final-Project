@@ -16,8 +16,8 @@
             <form method="POST" action="{{ route('login.authenticate') }}" class="space-y-4">
                 @csrf <!-- Laravel CSRF Token -->
                 <div>
-                    <label for="email" class="block text-gray-600 mb-1">Email</label>
-                    <input id="email" name="email" type="email" placeholder="Masukkan Alamat Email" required
+                    <label for="email" class="block text-gray-600 mb-1">Email atau Username</label>
+                    <input id="email" name="email" type="email" placeholder="Masukkan Alamat Email atau Username anda" required
                         class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
                 <div>
