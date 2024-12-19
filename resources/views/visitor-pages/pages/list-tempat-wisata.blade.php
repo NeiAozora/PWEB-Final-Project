@@ -7,7 +7,7 @@
 <script src="{{ asset('scripts/destinations-page-script.js') }}"></script>
 <script src="{{ asset('scripts/loading-animation.js') }}"></script>
 
-<div class="flex">
+<div class="flex flex-row min-h-screen">
 
     {{-- Sidebar --}}
     <div class="w-200 bg-white p-5 px-12 border-r-2 border-x-gray-200 border-gray-200">
@@ -40,6 +40,10 @@
         <button id="btn-reset-filter" class="mt-4 p-2 bg-cyan-500 text-white font-semibold rounded transition-colors duration-300 hover:bg-cyan-600">
             Reset Filter
         </button>
+
+        <button class="bg-cyan-500 text-white px-4 py-2 search-btn" type="submit">Cari</button>
+
+        
     </div>
 
     <script>
@@ -66,7 +70,7 @@
 
 
     {{-- Content --}}
-    <div class="w-5/6">
+    <div class="flex-row " >
 
         <div class="px-14 py-14">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="destination-container">
@@ -78,13 +82,13 @@
 
 
     <!-- pagination -->
-    <nav aria-label="Page navigation example" class="flex flex-col items-center w-full h-full md:pb-2 sm:pb-2 pb-6">
-        <ul class="pagination flex mt-5 space-x-2">
+    <div aria-label="Page navigation example" class=" flex-col  justify-center items-center md:pb-2 sm:pb-2 pb-6">
+        <ul class="pagination flex space-x-2  justify-center">
         </ul>
-    </nav>
+    </div>
 
     </div>
     {{-- End of Content --}}
-  </div>
+</div>
 
 @endsection

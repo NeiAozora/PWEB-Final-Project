@@ -74,7 +74,7 @@
 
                 <!-- Submit Button -->
                 <button type="submit"
-                    class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">
+                    class="w-full bg-[#00CCDD] text-white py-2 rounded-md hover:bg-[#089FAC] transition">
                     Daftar
                 </button>
             </form>
