@@ -141,36 +141,43 @@
                                 <p class="font-semibold text-gray-800">
                                     {{ \Illuminate\Support\Facades\Auth::user()->nama_depan . ' ' . \Illuminate\Support\Facades\Auth::user()->nama_belakang }}
                                 </p>
-                                <form action="" method="post"></form>
-                                <div class="block">
-                                    <div class="flex">
-                                        <span class="star" data-value="1">
-                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
-                                        </span>
-                                        <span class="star" data-value="2">
-                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
-                                        </span>
-                                        <span class="star" data-value="3">
-                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
-                                        </span>
-                                        <span class="star" data-value="4">
-                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
-                                        </span>
-                                        <span class="star" data-value="5">
-                                            <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
-                                        </span>
+                                <form action="{{ route('comment.store', $destination->id_tempat_wisata) }}" method="post">
+                                    @csrf
+
+                                    <div class="block">
+                                        <div class="flex">
+                                            <span class="star" data-value="1">
+                                                <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                            </span>
+                                            <span class="star" data-value="2">
+                                                <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                            </span>
+                                            <span class="star" data-value="3">
+                                                <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                            </span>
+                                            <span class="star" data-value="4">
+                                                <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                            </span>
+                                            <span class="star" data-value="5">
+                                                <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
+                                            </span>
+                                        </div>
+    
+                                        <input type="hidden" id="rating" name="rating" value="0">
                                     </div>
+                                    <input
+                                        name="komentar"
+                                        type="text"
+                                        aria-label="Isi komentar"
+                                        placeholder="Tulis komentar anda di sini..."
+                                        class="w-full border-b focus:outline-none focus:border-cyan-600">
+                                  
+                                    <button type="submit" id="kirim-ulasan" class="  bg-cyan-600 px-4 py-2 rounded-lg hover:bg-cyan-700 text-white mb-4">
+                                        Kirim Ulasan
+                                    </button>
+                                </form>
 
-                                    <input type="hidden" id="rating" name="rating" value="0">
-                                </div>
-                                <input
-                                    type="text"
-                                    aria-label="Isi komentar"
-                                    placeholder="Tulis komentar anda di sini..."
-                                    class="w-full border-b focus:outline-none focus:border-cyan-600">
-                            </div>
                         </div>
-
                     </div>
                 @else
                     <p class="text-gray-600 mb-4">Anda sudah memberikan ulasan untuk destinasi ini.</p>

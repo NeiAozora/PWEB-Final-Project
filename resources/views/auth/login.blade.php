@@ -39,15 +39,10 @@
                         </ul>
                     </div>
                 @endif
-                <div class="flex items-center justify-between">
-                    <label class="inline-flex items-center">
-                        <input type="checkbox" name="remember" class="form-checkbox text-blue-500">
-                        <span class="ml-2 text-sm text-gray-600">Ingat saya</span>
-                    </label>
-                </div>
+               
                 <button type="submit"
-                    class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">Login</button>
-            </form>
+                    class="w-full bg-[#00CCDD] text-white py-2 rounded-md hover:bg-[#089FAC] transition">Login</button>
+            </form> 
             <p class="text-sm text-center text-gray-500 mt-4">
                 Belum punya akun? <a href="{{ route('register') }}" class="text-blue-500 hover:underline">Daftar Sekarang</a>
             </p>

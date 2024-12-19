@@ -8,12 +8,19 @@
 
       <!-- Right Section with Buttons -->
       <div class="flex space-x-4">
-        <button class="text-white border border-white px-4 py-0 rounded-full hover:bg-white hover:text-cyan-500 transition font-semibold ">
-          Tentang Kami
-        </button>
-        <button class="border border-white px-4 py-0 rounded-full bg-white text-cyan-500 hover:bg-cyan-500 hover:text-white transition font-semibold">
-          Kelola Wisata
-        </button>
+        <a href="/tentangkami">
+          <button class="text-white border border-white px-4 py-0 rounded-full hover:bg-white hover:text-cyan-500 transition font-semibold ">
+            Tentang Kami
+          </button>
+        </a>
+
+        <a href="/kelola-wisata">
+          <button class="border border-white px-4 py-0 rounded-full bg-white text-cyan-500 hover:bg-cyan-500 hover:text-white transition font-semibold">
+            Kelola Wisata
+          </button>
+        </a>
+
+
       </div>
     </div>
 

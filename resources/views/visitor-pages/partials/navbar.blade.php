@@ -9,7 +9,7 @@
     <!-- Search Bar -->
         <form action="/cari-wisata" method="get" id="form-search" class="flex items-center border rounded-lg overflow-hidden shadow-sm flex-1 lg:mx-4 lg:w-2/3">
             <input id="search-input" type="text" placeholder="Cari tempat wisata ..." name="search" class="px-4 py-2 w-full focus:outline-none" />
-            <button class="bg-cyan-500 text-white px-4 py-2" id="search-btn" type="submit">Cari</button>
+            <button class="bg-cyan-500 text-white px-4 py-2 search-btn" id="search-btn" type="submit">Cari</button>
         </form>
 
     @if (\Illuminate\Support\Facades\Auth::check())
