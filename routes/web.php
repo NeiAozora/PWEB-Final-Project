@@ -25,6 +25,11 @@ Route::post('/api/visitor-data', [VisitorController::class, 'getVisitorData']); 
 Route::get('/tentangkami',function(){
 return view('visitor-pages.pages.tentangkami');
 } );
+Route::get('/kelola-wisata',function(){
+return view('visitor-pages.pages.kelola-wisata');
+} );
+
+
 
 // Route Auth (Middleware Guest)
 Route::middleware(GuestMiddleware::class)->group(function(){

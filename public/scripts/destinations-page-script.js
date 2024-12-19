@@ -209,10 +209,13 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchDestination(page, searchQuery);
     }
 
-    document.getElementById("search-btn").addEventListener('click', function() {
-        let query = document.getElementById("search-input").value;
-        fetchDestination(currentPage, query);
+    document.querySelectorAll(".search-btn").forEach((element) => {
+        element.addEventListener('click', function() {
+            let query = document.getElementById("search-input").value;
+            fetchDestination(currentPage, query);
+        });
     });
+    
 
 
     // Initial fetch

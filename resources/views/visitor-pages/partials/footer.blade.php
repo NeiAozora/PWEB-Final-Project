@@ -13,9 +13,14 @@
             Tentang Kami
           </button>
         </a>
-        <button class="border border-white px-4 py-0 rounded-full bg-white text-cyan-500 hover:bg-cyan-500 hover:text-white transition font-semibold">
-          Kelola Wisata
-        </button>
+
+        <a href="/kelola-wisata">
+          <button class="border border-white px-4 py-0 rounded-full bg-white text-cyan-500 hover:bg-cyan-500 hover:text-white transition font-semibold">
+            Kelola Wisata
+          </button>
+        </a>
+
+
       </div>
     </div>
 
