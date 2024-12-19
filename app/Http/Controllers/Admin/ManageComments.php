@@ -38,6 +38,27 @@ class ManageComments extends Controller
         return redirect()->route('admin.manage.comment');
     }
 
+    public function store(Request $request,$destination_id)
+    {
+        // Validasi data
+        // dd($request);
+        $validated = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'komentar' => 'required|string|max:255',
+        ]);
+
+        // Simpan data ke database
+        Ulasan::create([
+            'nilai_rating' => $validated['rating'],
+            'isi_komentar' => $validated['komentar'],
+            'id_tempat_wisata' => $destination_id, // Sesuaikan dengan ID tempat wisata
+            'id_pengguna' => \Illuminate\Support\Facades\Auth::user()->id_pengguna // Sesuaikan dengan ID tempat wisata
+            // 'id_pengguna' => auth()->id(), // Ambil ID pengguna yang login
+        ]);
+
+        return redirect()->route('destination.detail', $destination_id);
+    }
+
     public function create(Request $request){
 
     }
@@ -46,7 +67,7 @@ class ManageComments extends Controller
 
     }
 
-    public function store(Request $request){
+    // public function store(Request $request){
 
-    }
+    // }
 }

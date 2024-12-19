@@ -22,7 +22,6 @@
                     $i = 1;
                 @endphp
                 @foreach ($comments as $comment)
-
                     <tr class="hover:bg-gray-50">
                         <!-- Row number -->
                         <td class="p-2 align-middle border">{{ $i }}</td>
