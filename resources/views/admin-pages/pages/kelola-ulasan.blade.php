@@ -61,7 +61,7 @@
     @endif
 
 <script>
-    lightSidebarKelolaWisataBtn()
+    lightSidebarKelolaUlasanBtn()
 </script>
 <script src="{{ asset('scripts/data-tables.js') }}" type="module"></script>
 
