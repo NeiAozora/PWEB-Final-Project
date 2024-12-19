@@ -24,7 +24,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
             $user = Pengguna::where('email', $credentials['email'])->first(); // Use first() instead of get() to retrieve a single record
-
+            $user = $user ?? Pengguna::where('username', $credentials['email']->first());
             if ($user && $user->id_role == 3) {
                 return redirect()->route('homepage'); // Redirect to the homepage for users with id_role = 3
             } else {
@@ -38,7 +38,7 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
-    
+
 
     public function logout(Request $request)
     {

@@ -40,7 +40,7 @@ class PenggunaSeeder extends Seeder
                 'username' => 'bobon',
                 'password' => Hash::make('bobon123'),
                 'foto_profil' => '',
-                'id_role' => 3 // Pengguna Biasa
+                'id_role' => 3 // Pemilik tempat wisata
             ],
             [
                 'nama_depan' => 'Garox',
@@ -49,7 +49,7 @@ class PenggunaSeeder extends Seeder
                 'username' => 'garox',
                 'password' => Hash::make('garox123'),
                 'foto_profil' => '',
-                'id_role' => 3 // Pengguna Biasa
+                'id_role' => 4 // Pengunjung Biasa
             ],
 
 

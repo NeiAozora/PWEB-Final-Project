@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\KelolaAdminController;
-use App\Http\Controllers\Admin\ManageDestinations;
+use App\Http\Controllers\Admin\DestinationController;
+use App\Http\Controllers\Admin\ManageDestinationController;
+use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\RegisterController;
@@ -37,26 +38,28 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); // Lo
 // Route Authenticated (Middleware Auth)
 Route::middleware('auth')->group(function(){
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile'); // Halaman profil pengguna
+    Route::get('/settings', [ProfileController::class, 'indexSettings'])->name('profile.settings');
+    Route::put('/settings', [ProfileController::class, 'update'])->name('profile.settings.update');
 });
 
 // Route Admin (Harus Admin)
 Route::middleware(MustAdminsMiddleware::class)->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard'); // Dashboard Admin
-    Route::get('/admin/kelola-wisata', [ManageDestinations::class, 'index'])->name('admin.manage.destination'); // Kelola tempat wisata
-    Route::get('/admin/tempat-wisata/{id}/ubah', [ManageDestinations::class, 'indexEditDestination'])->name('destination.edit.show'); // Ubah tempat wisata
-    Route::get('/admin/tempat-wisata/tambah', [ManageDestinations::class, 'indexAddDestination'])->name('destination.add.show'); // Tambah tempat wisata
+    Route::get('/admin/kelola-wisata', [ManageDestinationController::class, 'index'])->name('admin.manage.destination'); // Kelola tempat wisata
+    Route::delete('/admin/tempat-wisata/{id}/hapus', [ManageDestinationController::class, 'deleteDestination'])->name('destination.destroy'); // Hapus tempat wisata
 
-    Route::delete('/admin/tempat-wisata/{id}/hapus', [ManageDestinations::class, 'deleteDestination'])->name('destination.destroy'); // Hapus tempat wisata
-    Route::post('/admin/tempat-wisata/tambah', [ManageDestinations::class, 'storeDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
-    Route::post('/admin/tempat-wisata/ubah', [ManageDestinations::class, 'updateDestination'])->name('destination.update'); // Proses penyimpanan data tempat wis
+    Route::get('/admin/tempat-wisata/{id}/ubah', [DestinationController::class, 'indexEditDestination'])->name('destination.edit.show'); // Ubah tempat wisata
+    Route::put('/admin/tempat-wisata/{id}/ubah', [DestinationController::class, 'updateDestination'])->name('destination.update'); // Proses penyimpanan data tempat wis
+    Route::get('/admin/tempat-wisata/tambah', [DestinationController::class, 'indexAddDestination'])->name('destination.add.show'); // Tambah tempat wisata
+    Route::post('/admin/tempat-wisata/tambah', [DestinationController::class, 'storeDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
 });
 
 // Route Manajemen Admin (Middleware Admin dengan level akses tertentu)
 Route::middleware(AdminMiddleware::class . ":1")->group(function(){
-    Route::get('/kelola-admin', [KelolaAdminController::class, 'index'])->name('admin.manage'); // Kelola Admin
-    Route::get('/kelola-admin/ubah/{id}', [KelolaAdminController::class, 'indexEditAdmin'])->name('admin.edit.show'); // Ubah admin
-    Route::get('/kelola-admin/tambah', [KelolaAdminController::class, 'indexCreateAdmin'])->name('admin.create.show'); // Tambah admin
-    Route::post('/kelola-admin/tambah', [KelolaAdminController::class, 'store'])->name('admin.create'); // Proses tambah admin
-    Route::put('/kelola-admin/ubah/{id}', [KelolaAdminController::class, 'update'])->name('admin.update'); // Proses update admin
-    Route::delete('/kelola-admin/hapus/{id}', [KelolaAdminController::class, 'delete'])->name('admin.destroy'); // Hapus admin
+    Route::get('/admin/kelola-pengguna', [ManageUserController::class, 'index'])->name('user.manage'); // Kelola Admin
+    Route::get('/admin/kelola-pengguna/ubah/{id}', [ManageUserController::class, 'indexEditUser'])->name('user.edit.show'); // Ubah admin
+    Route::get('/admin/kelola-pengguna/tambah', [ManageUserController::class, 'indexCreateUser'])->name('user.create.show'); // Tambah admin
+    Route::post('/admin/kelola-pengguna/tambah', [ManageUserController::class, 'store'])->name('user.create'); // Proses tambah admin
+    Route::put('/admin/kelola-pengguna/ubah/{id}', [ManageUserController::class, 'update'])->name('user.update'); // Proses update admin
+    Route::delete('/admin/kelola-pengguna/hapus/{id}', [ManageUserController::class, 'delete'])->name('user.destroy'); // Hapus admin
 });

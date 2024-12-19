@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('alamat', function (Blueprint $table) {
             $table->bigInteger('id_alamat')->primary()->autoIncrement();
-            $table->string('provinsi', 40);
+            $table->string('jalan', 90)->nullable();
+            $table->string('dusun', 40)->nullable();
+            $table->string('desa', 40)->nullable();
+            $table->string('kecamatan', 40);
             $table->string('kota', 50);
-            $table->string('jalan', 90);
+            $table->string('kabupaten', 50);
+            $table->string('provinsi', 50);
             $table->bigInteger('id_tempat_wisata')->unique('alamat_idx');
         });
     }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigInteger('id_ulasan')->primary()->autoIncrement();;
             $table->integer('nilai_rating')->nullable();
             $table->text('isi_komentar');
+            $table->timestamps();
             $table->bigInteger('id_tempat_wisata')->index('ulasan_tempat_wisata_fk');
             $table->bigInteger('id_pengguna')->index('ulasan_pengguna_fk');
             $table->bigInteger('id_ulasan_yg_dibalas')->nullable()->index('ulasan_ulasan_fk');
