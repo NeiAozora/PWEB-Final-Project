@@ -140,17 +140,23 @@ class DestinationController extends Controller
         }
 
         // Add new images
-        foreach ($validated['gambar'] ?? [] as $newImage) {
-            $gambarFile = $newImage['gambar_tempat_wisata'] ?? null;
-            $publicPath = public_path('storage');
+        // foreach ($validated['gambar'] ?? [] as $newImage) {
+        //     $gambarFile = $newImage['gambar_tempat_wisata'] ?? null;
+        //     $publicPath = public_path('storage');
 
-            if ($gambarFile) {
-                $fileName = Random::generate() . '.' . $gambarFile->getClientOriginalExtension();
-                $gambarFile->move($publicPath, $fileName);
-                $tempatWisata->gambar_tempat_wisata()->create([
-                    'url_gambar' => 'storage/' . $fileName,
-                ]);
-            }
+        //     if ($gambarFile) {
+        //         $fileName = Random::generate() . '.' . $gambarFile->getClientOriginalExtension();
+        //         $gambarFile->move($publicPath, $fileName);
+        //         $tempatWisata->gambar_tempat_wisata()->create([
+        //             'url_gambar' => 'storage/' . $fileName,
+        //         ]);
+        //     }
+        // }
+
+        if ($request->hasFile('gambar_tempat_wisata')) {
+            $filePath = $request->file('gambar_tempat_wisata')->store('public');
+        } else {
+            $filePath = null;
         }
 
         // Insert social media links

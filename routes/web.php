@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 Route::get('/', [HomepageController::class, 'index'])->name('homepage'); // Halaman utama
 Route::get('/cari-wisata', [ListDestinationController::class, 'index']); // Cari tempat wisata
 Route::get('/tempat-wisata/{id}', [DestinationDetailController::class, 'index'])->name('destination.detail'); // Detail tempat wisata
+// Route::get('/tempat-wisata/{id}/booking/detail-tiket')->name('booking.detail-tiket'); // Detail tempat wisata
 // Route::post('/tempat-wisata/{id}', [DestinationDetailController::class, 'index'])->name('destination.detail'); // Detail tempat wisata
 Route::get('/api/destinations', [ListDestinationController::class, 'getDestinations']); // API untuk mendapatkan daftar destinasi
 Route::post('/api/visitor-data', [VisitorController::class, 'getVisitorData']); // API untuk mendapatkan data pengunjung
@@ -32,6 +33,12 @@ return view('visitor-pages.pages.tentangkami');
 } );
 Route::get('/kelola-wisata',function(){
 return view('visitor-pages.pages.kelola-wisata');
+} );
+Route::get('/booking/detail-tiket',function(){
+return view('visitor-pages.pages.booking.detail-tiket');
+} );
+Route::get('/booking/pembayaran-tiket',function(){
+return view('visitor-pages.pages.booking.pembayaran-tiket');
 } );
 
 

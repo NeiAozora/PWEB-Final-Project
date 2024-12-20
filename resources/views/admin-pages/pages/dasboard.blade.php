@@ -10,7 +10,7 @@
             <img src="{{ asset('assets/images/icons/bubble-speeches.svg') }}" alt="">
         </div>
         <div class="block text-center">
-            <h5 class="text-sm font-semibold text-cyan-600">Komentar Baru</h5>
+            <h5 class="text-sm font-semibold text-cyan-600">Total Komentar</h5>
             <h1 class="text-3xl font-bold text-cyan-800">{{ $totalUlasan }}</h1>
         </div>
     </div>

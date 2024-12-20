@@ -121,7 +121,8 @@ class ManageUserController extends Controller
                 alert('user baru telah ditambahkan!');
                 window.location.href = '" . route('user.manage') . "';
               </script>";
-        exit;    }
+        exit;   
+    }
 
     public function update(Request $request, $id)
     {

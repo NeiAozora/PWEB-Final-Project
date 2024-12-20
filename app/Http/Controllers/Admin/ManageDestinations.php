@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\TempatWisata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ManageDestinations extends Controller
 {
@@ -72,6 +73,23 @@ class ManageDestinations extends Controller
     public function indexAddDestination(Request $request){
         return view('admin-pages.pages.buat-edit-tempat-wisata', ['isEditMode' => false]);
 
+    }
+
+    public function deleteDestination($id)
+    {
+        // Cari data berdasarkan ID
+        $destination = TempatWisata::find($id);
+
+        // Jika data tidak ditemukan, beri respons error
+        if (!$destination) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan!');
+        }
+
+        // Hapus data
+        $destination->delete();
+
+        // Redirect ke halaman tertentu dengan pesan sukses
+        return redirect()->route('admin.manage.destination');
     }
 
     public function create(Request $request){
