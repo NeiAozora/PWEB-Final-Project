@@ -21,7 +21,7 @@
                 <div>
                     <label for="tanggal" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Visit</label>
                     <input type="date" id="tanggal" name="tanggal" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400">
-                </div>
+                </div> 
                 
                 <!-- Jumlah Tiket -->
                 <div>
@@ -39,8 +39,5 @@
         </form>
     </div>
 </div>
-
-
-
 
 @endsection

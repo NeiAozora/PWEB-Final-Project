@@ -8,6 +8,7 @@ use App\Models\Hari;
 use App\Models\TempatWisata;
 use App\Models\TipeTiket;
 use App\Models\Ulasan;
+use Exception;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Nette\Utils\Random;
+use App\Http\Controllers\Admin\Str;
 
 class DestinationController extends Controller
 {
@@ -91,15 +93,21 @@ class DestinationController extends Controller
         // }
 
         $validated = $request->toArray();
+        $fileData = $request->files->all();
+
+
+        $validated = $this->parseRequestData($validated, $fileData);
+
+        // dd($validated);
 
         // Create main TempatWisata entity
         $tempatWisata = TempatWisata::create([
             'nama' => $validated['nama'],
-            'description' => $validated['description'] ?? null,
+            'deskripsi' => $validated['description'] ?? null,
             'link_gmaps' => $validated['link_gmaps'],
         ]);
 
-        // dd($validated);
+        // dd($tempatWisata);
 
         // Create address details
         $tempatWisata->alamat()->create([
@@ -121,6 +129,7 @@ class DestinationController extends Controller
 
         // Insert tickets
         foreach ($validated['tiket'] ?? [] as $ticket) {
+
             $newTipeTicket = $tempatWisata->tipe_tiket()->create([
                 'nama_tipe' => $ticket['nama'],
                 'waktu_dimulai' => $ticket['waktu_dimulai'] ?? null,
@@ -128,36 +137,46 @@ class DestinationController extends Controller
                 'harga' => $ticket['harga'] ?? null,
             ]);
 
+            if(empty($ticket['hari_mulai'])) {
+                throw new Exception("Data Hari mulai null di ticket '" . $ticket['hari_mulai'] . "'");
+            }
+
             Hari::create([
-                'nama_hari' => $validated['hari_mulai'] ?? null,
+                'nama_hari' => $ticket['hari_mulai'],
                 'id_tipe_tiket' => $newTipeTicket->id_tipe_tiket,
             ]);
 
+            if(empty($ticket['hari_berakhir'])) {
+                throw new Exception("Data Hari akhir null di ticket '" . $ticket['hari_berakhir'] . "'");
+            }
+
             Hari::create([
-                'nama_hari' => $validated['hari_sampai'] ?? null,
+                'nama_hari' => $ticket['hari_berakhir'],
                 'id_tipe_tiket' => $newTipeTicket->id_tipe_tiket,
             ]);
         }
 
-        // Add new images
-        // foreach ($validated['gambar'] ?? [] as $newImage) {
-        //     $gambarFile = $newImage['gambar_tempat_wisata'] ?? null;
-        //     $publicPath = public_path('storage');
+        foreach ($validated['gambar']as $newImage) {
+            $gambarFile = $newImage['gambar_tempat_wisata'] ?? null;
+            $publicPath = public_path('storage');
 
-        //     if ($gambarFile) {
-        //         $fileName = Random::generate() . '.' . $gambarFile->getClientOriginalExtension();
-        //         $gambarFile->move($publicPath, $fileName);
-        //         $tempatWisata->gambar_tempat_wisata()->create([
-        //             'url_gambar' => 'storage/' . $fileName,
-        //         ]);
+            if ($gambarFile) {
+                $fileName = Random::generate() . "." . $gambarFile->getClientOriginalExtension();
+                $fullPathGambar = $gambarFile->move($publicPath, $fileName);
+                $tempatWisata->gambar_tempat_wisata()->create(['url_gambar' => 'storage/' . $fileName]);
+            }
+        }
+
+        // if ($request->hasFile('gambar_tempat_wisata')) {
+        //     $filePath = public_path('storage/' . $validated['gambar_tempat_wisata']);
+
+        //     if (file_exists($filePath) && !is_dir($filePath)) {
+        //         unlink($filePath);
         //     }
-        // }
 
-        if ($request->hasFile('gambar_tempat_wisata')) {
-            $filePath = $request->file('gambar_tempat_wisata')->store('public');
-        } else {
-            $filePath = null;
-        }
+        //     $filePath = $request->file('foto_profil')->store('profile_pictures', 'public');
+        //     // $dataUpdate['foto_profil'] = $filePath;
+        // }
 
         // Insert social media links
         $data = $request->only(['whatsapp', 'instagram', 'website', 'youtube', 'tiktok']);

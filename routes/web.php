@@ -40,6 +40,12 @@ return view('visitor-pages.pages.booking.detail-tiket');
 Route::get('/booking/pembayaran-tiket',function(){
 return view('visitor-pages.pages.booking.pembayaran-tiket');
 } );
+Route::get('/booking/pesanan/menunggu-verifikasi',function(){
+return view('visitor-pages.pages.booking.pesanan.menunggu-verifikasi');
+} );
+Route::get('/booking/pesanan/selesai',function(){
+return view('visitor-pages.pages.booking.pesanan.selesai');
+} );
 
 
 

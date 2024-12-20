@@ -69,7 +69,7 @@ class ProfileController extends Controller
         if ($request->hasFile('foto_profil')) {
             $filePath = public_path('storage/' . $pengguna->foto_profil);
 
-            if (file_exists($filePath)) {
+            if (file_exists($filePath) && !is_dir($filePath)) {
                 unlink($filePath);
             }
 
