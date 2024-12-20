@@ -8,15 +8,15 @@
     <h1 class="text-2xl font-bold mb-4">Pesananku</h1>
     <!-- Header Tabs -->
     <div class="flex justify-start space-x-4 mb-6">
-      <a href="#" class="px-4 py-2 text-sm font-medium bg-white text-cyan-500 rounded-lg hover:bg-cyan-500 hover:text-white border-cyan-500">
+      <a href="#" class="px-4 py-2 text-sm font-medium bg-white border border-cyan-500 text-cyan-500 rounded-lg hover:bg-cyan-500 hover:text-white">
         Menunggu Verifikasi
       </a>
-      <button class="px-4 py-2 text-sm font-medium text-white border bg-cyan-500 rounded-lg ">
+      <a href="#" class="px-4 py-2 text-sm font-medium text-white border bg-cyan-500 rounded-lg ">
         Selesai
-      </button>
-      <button class="px-4 py-2 text-sm font-medium text-cyan-500 border border-cyan-500 rounded-lg hover:bg-cyan-500 hover:text-white">
+      </a>
+      <a href="#" class="px-4 py-2 text-sm font-medium text-cyan-500 border border-cyan-500 rounded-lg hover:bg-cyan-500 hover:text-white">
         Dibatalkan
-      </button>
+      </a>
     </div>
   
     <!-- Card List -->
