@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $provinsi
  * @property string $kota
  * @property string $jalan
+ * @property string $kecamatan
  * @property int $id_tempat_wisata
  *
  * @property TempatWisata $tempat_wisata
@@ -35,6 +36,8 @@ class Alamat extends Model
 		'provinsi',
 		'kota',
 		'jalan',
+		'kecamatan',
+		'kabupaten',
 		'id_tempat_wisata'
 	];
 

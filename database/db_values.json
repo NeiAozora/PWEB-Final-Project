@@ -1,7 +1,7 @@
 {
 "tempat_wisata": [
   {"id_tempat_wisata": 1, "nama": "Pantai Kuta", "deskripsi": "Pantai terkenal di Bali dengan pasir putih dan ombak yang cocok untuk berselancar.", "link_gmaps": "https://maps.google.com/?cid=9439169753152926862"},
-  {"id_tempat_wisata": 2, "nama": "Gunung Bromo", "deskripsi": "Gunung berapi aktif di Jawa Timur dengan pemandangan matahari terbit yang memukau.", "link_gmaps": "https://maps.google.com/?cid=12512140194294703581"},
+  {"id_tempat_wisata": 2, "nama": "Gunung Bromo", "deskripsi": "Gunung berapi aktif di Jawa Timur dengan pemandangan matahari terbit yang memukau.", "link_gmaps": "https://maps.google.com/?cid=12512140194294703581", "id_pengguna" : 3},
   {"id_tempat_wisata": 3, "nama": "Candi Borobudur", "deskripsi": "Candi Buddha terbesar di dunia, terletak di Magelang, Jawa Tengah.", "link_gmaps": "https://maps.google.com/?cid=996213835147625419"},
   {"id_tempat_wisata": 4, "nama": "Taman Mini Indonesia Indah", "deskripsi": "Taman budaya yang mewakili berbagai budaya Indonesia, terletak di Jakarta.", "link_gmaps": "https://maps.google.com/?cid=518239111622089228"},
   {"id_tempat_wisata": 5, "nama": "Pulau Komodo", "deskripsi": "Pulau habitat Komodo, kadal terbesar di dunia, terletak di NTT.", "link_gmaps": "https://maps.google.com/?cid=444619602579399698"},

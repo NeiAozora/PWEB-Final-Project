@@ -8,7 +8,18 @@
     <div class="max-w-screen-xl mx-auto flex items-center justify-between px-8 py-12 space-x-8">
         <!-- Image Section -->
         <div class="flex-shrink-0 w-1/2 over" style="width: 600px; height: 400px">
-            <img id="destinationImage" src="{{ asset($destination->gambar_tempat_wisata->first()['url_gambar']) }}" alt="{{ $destination->nama }}" class="w-full h-full object-cover rounded-lg shadow-lg">
+            @if ($destination->gambar_tempat_wisata && $destination->gambar_tempat_wisata->first())
+                <img id="destinationImage" 
+                    src="{{ asset($destination->gambar_tempat_wisata->first()['url_gambar']) }}" 
+                    alt="{{ $destination->nama }}" 
+                    class="w-full h-full object-cover rounded-lg shadow-lg">
+            @else
+                <img id="destinationImage" 
+                    src="{{ asset('default-image.jpg') }}" 
+                    alt="Default Image" 
+                    class="w-full h-full object-cover rounded-lg shadow-lg">
+            @endif
+
         </div>
 
 

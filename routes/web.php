@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 Route::get('/', [HomepageController::class, 'index'])->name('homepage'); // Halaman utama
 Route::get('/cari-wisata', [ListDestinationController::class, 'index']); // Cari tempat wisata
 Route::get('/tempat-wisata/{id}', [DestinationDetailController::class, 'index'])->name('destination.detail'); // Detail tempat wisata
+// Route::get('/tempat-wisata/{id}/booking/detail-tiket')->name('booking.detail-tiket'); // Detail tempat wisata
 // Route::post('/tempat-wisata/{id}', [DestinationDetailController::class, 'index'])->name('destination.detail'); // Detail tempat wisata
 Route::get('/api/destinations', [ListDestinationController::class, 'getDestinations']); // API untuk mendapatkan daftar destinasi
 Route::post('/api/visitor-data', [VisitorController::class, 'getVisitorData']); // API untuk mendapatkan data pengunjung
@@ -32,6 +33,18 @@ return view('visitor-pages.pages.tentangkami');
 } );
 Route::get('/kelola-wisata',function(){
 return view('visitor-pages.pages.kelola-wisata');
+} );
+Route::get('/booking/detail-tiket',function(){
+return view('visitor-pages.pages.booking.detail-tiket');
+} );
+Route::get('/booking/pembayaran-tiket',function(){
+return view('visitor-pages.pages.booking.pembayaran-tiket');
+} );
+Route::get('/booking/pesanan/menunggu-verifikasi',function(){
+return view('visitor-pages.pages.booking.pesanan.menunggu-verifikasi');
+} );
+Route::get('/booking/pesanan/selesai',function(){
+return view('visitor-pages.pages.booking.pesanan.selesai');
 } );
 
 
@@ -65,7 +78,7 @@ Route::middleware(MustAdminsMiddleware::class)->group(function () {
 
     Route::delete('/admin/kelola-ulasan/{id}/hapus', [ManageComments::class, 'deleteComment'])->name('comment.destroy'); // Hapus tempat wisata
     Route::delete('/admin/tempat-wisata/{id}/hapus', [ManageDestinations::class, 'deleteDestination'])->name('destination.destroy'); // Hapus tempat wisata
-    Route::post('/admin/tempat-wisata/tambah', [ManageDestinations::class, 'storeDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
+    Route::post('/admin/tempat-wisata/tambah', [DestinationController::class, 'createDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
     Route::post('/admin/tempat-wisata/ubah', [ManageDestinations::class, 'updateDestination'])->name('destination.update'); // Proses penyimpanan data tempat wis
 });
 

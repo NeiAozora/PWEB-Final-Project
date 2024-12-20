@@ -28,7 +28,7 @@
                     @php
                         $idRole = \Illuminate\Support\Facades\Auth::user()->id_role;
                     @endphp
-                    @if ($idRole == 1 || $idRole == 2)
+                    @if (\App\Helpers\AuthHelper::isDasboardRequired())
                         <li><a href="{{ route('admin.dashboard') }}" class="text-sm text-cyan-600 hover:underline">Dashboard Admin</a></li>
                     @endif
                     <li><a href="{{ route('profile') }}" class="text-sm text-cyan-600 hover:underline">View Profile</a></li>

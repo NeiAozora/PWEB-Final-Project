@@ -21,11 +21,8 @@ class ManageUserController extends Controller
             $query->whereNotIn('id_role', [$idRole, 1]);
         })->get();
 
-
         return view('admin-pages.pages.list-pengguna', compact('users'));
     }
-
-
 
     // method yang hanya bisa diakses untuk user dan superuser
     public function indexEditUser($id)
@@ -61,7 +58,6 @@ class ManageUserController extends Controller
         $roles = $this->getRoles();
         return view('admin-pages.pages.buat-edit-pengguna', compact('roles'));
     }
-
 
     public function delete(Request $request, $id)
     {
@@ -121,7 +117,8 @@ class ManageUserController extends Controller
                 alert('user baru telah ditambahkan!');
                 window.location.href = '" . route('user.manage') . "';
               </script>";
-        exit;    }
+        exit;   
+    }
 
     public function update(Request $request, $id)
     {

@@ -20,7 +20,7 @@ class MustAdminsMiddleware
         $user = Auth::user();
 
         // Jika user tidak login atau tidak memiliki role yang sesuai
-        if (!$user || !in_array($user->id_role, [1,2])) {
+        if (!$user || !in_array($user->id_role, [1,2,3])) {
             // abort(403, 'Unauthorized access.');
             return redirect(route('login'));
         }

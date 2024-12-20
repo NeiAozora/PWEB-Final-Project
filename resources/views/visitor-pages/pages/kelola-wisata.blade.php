@@ -16,9 +16,8 @@
     <div class="container mx-auto px-6 py-10">
         <h2 class=" font-semibold text-[#00CCDD] mb-4" style="font-size:30px">Bagaimana Sih Cara Kelola Wisata di Visitnusantara ?</h2>
         <ul class="list-disc list-inside text-gray-600 leading-relaxed font-normal" style="font-size: 20px">
-            <li>Memajukan Pariwisata Lokal: Memberikan pengelola wisata kesempatan untuk mempromosikan destinasi unggulannya.</li>
-            <li>Menginspirasi Wisatawan: Menyajikan informasi lengkap dan terpercaya agar wisatawan dapat merencanakan perjalanan impian mereka dengan mudah.</li>
-            <li>Melestarikan Budaya & Alam: Mendukung pariwisata yang berkelanjutan untuk menjaga keindahan alam dan budaya lokal.</li>
+            <li>Anda dapat membuat akun terlebih dahulu dihalaman register</li>
+            <li>Anda juga dapat langsung menghubungi pihak kami di <a href="https://wa.me/6285606689642" style="color: blue">https://wa.me/6285606689642</a></li>
         </ul>
     </div>
 

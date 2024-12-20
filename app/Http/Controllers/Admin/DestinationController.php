@@ -8,6 +8,7 @@ use App\Models\Hari;
 use App\Models\TempatWisata;
 use App\Models\TipeTiket;
 use App\Models\Ulasan;
+use Exception;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Nette\Utils\Random;
+use App\Http\Controllers\Admin\Str;
 
 class DestinationController extends Controller
 {
@@ -62,42 +64,50 @@ class DestinationController extends Controller
         $parsedData = $this->parseRequestData($requestData, $fileData);
 
         // Validator for validation
-        $validator = Validator::make($parsedData, [
-            'nama' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'provinsi' => 'required|string|max:255',
-            'kabupaten' => 'required|string|max:255',
-            'kecamatan' => 'required|string|max:255',
-            'kota' => 'required|string|max:255',
-            'desa' => 'nullable|string|max:255',
-            'dusun' => 'nullable|string|max:255',
-            'jalan' => 'nullable|string|max:255',
-            'link_gmaps' => 'required|url',
-            'hari_mulai' => 'string|max:255',
-            'hari_sampai' => 'string|max:255',
-            'fasilitas' => 'nullable|array',
-            'fasilitas.*.nama_fasilitas' => 'nullable|string|max:255',
-            'tiket' => 'nullable|array',
-            'tiket.*.nama' => 'required_with:tiket|string|max:255',
-            'tiket.*.waktu_dimulai' => 'nullable|string|max:5',
-            'tiket.*.waktu_berakhir' => 'nullable|string|max:5',
-            'tiket.*.harga' => 'nullable|numeric',
-            'gambar' => 'nullable|array',
-            'gambar.*.gambar_tempat_wisata' => 'nullable|file|image|max:2048',
-        ]);
+        // $validator = Validator::make($parsedData, [
+        //     'nama' => 'required|string|max:255',
+        //     'description' => 'nullable|string',
+        //     'provinsi' => 'required|string|max:255',
+        //     'kabupaten' => 'required|string|max:255',
+        //     'kecamatan' => 'required|string|max:255',
+        //     'kota' => 'required|string|max:255',
+        //     'desa' => 'nullable|string|max:255',
+        //     'dusun' => 'nullable|string|max:255',
+        //     'jalan' => 'nullable|string|max:255',
+        //     'link_gmaps' => 'required|url',
+        //     'hari_mulai' => 'string|max:255',
+        //     'hari_sampai' => 'string|max:255',
+        //     'fasilitas' => 'nullable|array',
+        //     'fasilitas.*.nama_fasilitas' => 'nullable|string|max:255',
+        //     'tiket' => 'nullable|array',
+        //     'tiket.*.nama' => 'required_with:tiket|string|max:255',
+        //     'tiket.*.waktu_dimulai' => 'nullable|string|max:5',
+        //     'tiket.*.waktu_berakhir' => 'nullable|string|max:5',
+        //     'tiket.*.harga' => 'nullable|numeric',
+        //     'gambar' => 'nullable|array',
+        //     'gambar.*.gambar_tempat_wisata' => 'nullable|file|image|max:2048',
+        // ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json(['errors' => $validator->errors()], 422);
+        // }
 
-        $validated = $validator->validated();
+        $validated = $request->toArray();
+        $fileData = $request->files->all();
+
+
+        $validated = $this->parseRequestData($validated, $fileData);
+
+        // dd($validated);
 
         // Create main TempatWisata entity
         $tempatWisata = TempatWisata::create([
             'nama' => $validated['nama'],
-            'description' => $validated['description'] ?? null,
+            'deskripsi' => $validated['description'] ?? null,
             'link_gmaps' => $validated['link_gmaps'],
         ]);
+
+        // dd($tempatWisata);
 
         // Create address details
         $tempatWisata->alamat()->create([
@@ -119,6 +129,7 @@ class DestinationController extends Controller
 
         // Insert tickets
         foreach ($validated['tiket'] ?? [] as $ticket) {
+
             $newTipeTicket = $tempatWisata->tipe_tiket()->create([
                 'nama_tipe' => $ticket['nama'],
                 'waktu_dimulai' => $ticket['waktu_dimulai'] ?? null,
@@ -126,30 +137,46 @@ class DestinationController extends Controller
                 'harga' => $ticket['harga'] ?? null,
             ]);
 
+            if(empty($ticket['hari_mulai'])) {
+                throw new Exception("Data Hari mulai null di ticket '" . $ticket['hari_mulai'] . "'");
+            }
+
             Hari::create([
-                'nama_hari' => $validated['hari_mulai'] ?? null,
+                'nama_hari' => $ticket['hari_mulai'],
                 'id_tipe_tiket' => $newTipeTicket->id_tipe_tiket,
             ]);
 
+            if(empty($ticket['hari_berakhir'])) {
+                throw new Exception("Data Hari akhir null di ticket '" . $ticket['hari_berakhir'] . "'");
+            }
+
             Hari::create([
-                'nama_hari' => $validated['hari_sampai'] ?? null,
+                'nama_hari' => $ticket['hari_berakhir'],
                 'id_tipe_tiket' => $newTipeTicket->id_tipe_tiket,
             ]);
         }
 
-        // Add new images
-        foreach ($validated['gambar'] ?? [] as $newImage) {
+        foreach ($validated['gambar']as $newImage) {
             $gambarFile = $newImage['gambar_tempat_wisata'] ?? null;
             $publicPath = public_path('storage');
 
             if ($gambarFile) {
-                $fileName = Random::generate() . '.' . $gambarFile->getClientOriginalExtension();
-                $gambarFile->move($publicPath, $fileName);
-                $tempatWisata->gambar_tempat_wisata()->create([
-                    'url_gambar' => 'storage/' . $fileName,
-                ]);
+                $fileName = Random::generate() . "." . $gambarFile->getClientOriginalExtension();
+                $fullPathGambar = $gambarFile->move($publicPath, $fileName);
+                $tempatWisata->gambar_tempat_wisata()->create(['url_gambar' => 'storage/' . $fileName]);
             }
         }
+
+        // if ($request->hasFile('gambar_tempat_wisata')) {
+        //     $filePath = public_path('storage/' . $validated['gambar_tempat_wisata']);
+
+        //     if (file_exists($filePath) && !is_dir($filePath)) {
+        //         unlink($filePath);
+        //     }
+
+        //     $filePath = $request->file('foto_profil')->store('profile_pictures', 'public');
+        //     // $dataUpdate['foto_profil'] = $filePath;
+        // }
 
         // Insert social media links
         $data = $request->only(['whatsapp', 'instagram', 'website', 'youtube', 'tiktok']);
@@ -163,8 +190,8 @@ class DestinationController extends Controller
                 ]);
             }
         }
-
-        return response()->json(['message' => 'Tempat Wisata successfully inserted', 'data' => $tempatWisata], 201);
+        return redirect()->route('admin.manage.destination');
+        // return response()->json(['message' => 'Tempat Wisata successfully inserted', 'data' => $tempatWisata], 201);
     }
 
 
