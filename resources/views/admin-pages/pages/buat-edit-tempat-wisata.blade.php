@@ -24,14 +24,17 @@
                     <input type="text" id="facilityInput" placeholder="Masukkan Nama Fasilitas" class="flex-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400" />
                     <button type="button" id="addFacilityButton" class="bg-cyan-500 text-white px-4 py-2 rounded-md hover:bg-cyan-600">Tambah</button>
                 </div>
+                <div id="input-facilities-deletion-container">
+
+                </div>
                 <div class="flex flex-wrap gap-2 w-full p-2 border border-gray-300 rounded-md" id="facilityContainer">
                     @if (empty($destination->fasilitas) && !$isEditMode)
                         <p class="text-gray-500 italic p-2">Anda belum menambahkan fasilitas</p>
                     @else
                     @foreach ($destination->fasilitas as $i => $fasilitas)
-                        <div class="border-cyan-500 p-1 border-2 rounded-md flex gap-1">
-                            <input type="text" name="nama_fasilitas_{{ $i+1 }}" value="{{ old('nama_fasilitas_'.$i, $fasilitas->nama_fasilitas) }}" class="p-2" required />
-                            <input type="hidden" name="id_fasilitas_{{ $i+1 }}" value="{{ old('id_fasilitas_'.$i, $fasilitas->id_fasilitas) }}" />
+                        <div class="border-cyan-500 p-1 border-2 rounded-md flex gap-1" data-id="{{ $i+1 }}">
+                            <input type="text" name="nama_fasilitas_{{ $i+1 }}" value="{{ old('nama_fasilitas_'.$i+1, $fasilitas->nama_fasilitas) }}" class="p-2" required />
+                            <input type="hidden" name="id_fasilitas_{{ $i+1 }}" value="{{ old('id_fasilitas_'.$i+1, $fasilitas->id_fasilitas) }}" />
                             <button type="button" class="bg-cyan-500 rounded-sm text-white px-2" onclick="removeFacility(this); checkIfEmpty();">x</button>
                         </div>
                     @endforeach

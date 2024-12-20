@@ -52,15 +52,15 @@ class ManageDestinations extends Controller
         if (empty($destination->toArray())){
             return back(404);
         }
-        
+
         // dd($destination);
 
-        return view('admin-pages.pages.ubah-edit-tempat-wisata', ['isEditMode' => true, 'destination' => $destination[0]]);
+        return view('admin-pages.pages.buat-edit-tempat-wisata', ['isEditMode' => true, 'destination' => $destination[0]]);
     }
 
 
     public function indexAddDestination(Request $request){
-        return view('admin-pages.pages.ubah-edit-tempat-wisata', ['isEditMode' => false]);
+        return view('admin-pages.pages.buat-edit-tempat-wisata', ['isEditMode' => false]);
 
     }
 
