@@ -31,6 +31,7 @@ Route::post('/api/visitor-data', [VisitorController::class, 'getVisitorData']); 
 Route::get('/tentangkami',function(){
 return view('visitor-pages.pages.tentangkami');
 } );
+// testing halaman
 Route::get('/kelola-wisata',function(){
 return view('visitor-pages.pages.kelola-wisata');
 } );
@@ -45,6 +46,15 @@ return view('visitor-pages.pages.booking.pesanan.menunggu-verifikasi');
 } );
 Route::get('/booking/pesanan/selesai',function(){
 return view('visitor-pages.pages.booking.pesanan.selesai');
+} );
+Route::get('/booking/pesanan/detail-pesanan',function(){
+return view('visitor-pages.pages.booking.pesanan.detail-pesanan');
+} );
+Route::get('/kelola-tiket',function(){
+return view('admin-pages.pages.kelola-tiket');
+} );
+Route::get('/konfirmasi-tiket',function(){
+return view('admin-pages.pages.detail-tiket');
 } );
 
 

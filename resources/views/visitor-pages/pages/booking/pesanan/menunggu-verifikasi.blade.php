@@ -8,7 +8,7 @@
     <h1 class="text-2xl font-bold mb-4">Pesananku</h1>
     <!-- Header Tabs -->
     <div class="flex justify-start space-x-4 mb-6">
-      <a href="" class="px-4 py-2 text-sm font-medium bg-cyan-500 text-white rounded-lg hover:bg-blue-600">
+      <a href="" class="px-4 py-2 text-sm font-medium bg-cyan-500 text-white rounded-lg hover:bg-blue-600" >
         Menunggu Verifikasi
       </a>
       <a href="" class="px-4 py-2 text-sm font-medium text-cyan-500 border border-cyan-500 rounded-lg hover:bg-cyan-500 hover:text-white">
@@ -28,7 +28,7 @@
           alt="Gambar Wisata"
           class="w-32 h-20 rounded-md object-cover mr-4"
         />
-        <div class="flex-1 ml-10">
+        <div class="flex-1 sp ml-10">
           <h3 class="text-lg font-semibold text-cyan-500 hover:underline cursor-pointer">
             Selokambang
           </h3>
@@ -36,7 +36,7 @@
           <p class="text-sm text-gray-600">Jumlah: 2 Tiket</p>
           <p class="text-sm">
             Status:
-            <span class="text-yellow-500 bg-yellow-100 px-2 py-1 rounded">
+            <span class="px-2 py-1 rounded font-semibold" style="color: rgb(255, 186, 29); background-color: rgb(255, 246, 219)">
               Menunggu Verifikasi
             </span>
           </p>
@@ -58,7 +58,7 @@
           <p class="text-sm text-gray-600">Jumlah: 2 Tiket</p>
           <p class="text-sm">
             Status:
-            <span class="text-yellow-500 bg-yellow-100 px-2 py-1 rounded">
+            <span class="px-2 py-1 rounded" style="color: rgb(255, 186, 29); background-color: rgb(255, 246, 219)">
               Menunggu Verifikasi
             </span>
           </p>

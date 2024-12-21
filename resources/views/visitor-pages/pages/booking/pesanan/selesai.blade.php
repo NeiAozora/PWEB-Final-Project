@@ -36,9 +36,12 @@
           <p class="text-sm text-gray-600">Jumlah: 2 Tiket</p>
           <p class="text-sm">
             Status:
-            <span class="text-yellow-500 bg-yellow-100 px-2 py-1 rounded">
-              Menunggu Verifikasi
+            <span class="px-2 py-1 rounded font-semibold" style="color: rgb(0, 204, 102); background-color: rgb(215, 255, 235)">
+              Selesai
             </span>
+            <button class="px-2 py-1 rounded font-semibold text-white bg-cyan-500">
+                Download Tiket
+              </button>
           </p>
         </div>
       </div>
@@ -58,9 +61,12 @@
           <p class="text-sm text-gray-600">Jumlah: 2 Tiket</p>
           <p class="text-sm">
             Status:
-            <span class="text-yellow-500 bg-yellow-100 px-2 py-1 rounded">
-              Menunggu Verifikasi
+            <span class="px-2 py-1 rounded font-semibold" style="color: rgb(0, 204, 102); background-color: rgb(215, 255, 235)">
+              Selesai
             </span>
+            <button class="px-2 py-1 rounded font-semibold text-white bg-cyan-500">
+              Download Tiket
+            </button>
           </p>
         </div>
       </div>

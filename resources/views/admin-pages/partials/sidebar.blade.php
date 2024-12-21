@@ -16,6 +16,12 @@
         <img src="https://img.icons8.com/ios-filled/24/ffffff/chat.png" alt="Kelola Ulasan Icon" class="mr-3">
         <span class="font-medium">Kelola Ulasan</span>
         </a>
+
+        <a href="" class="flex items-center px-4 py-3 mb-4 hover:bg-cyan-400 rounded-md" id="kelola-tiket-sidebar-btn">
+        <img src="https://img.icons8.com/ios-filled/24/ffffff/ticket.png" alt="Kelola Ulasan Icon" class="mr-3">
+        <span class="font-medium">Kelola Tiket</span>
+        </a>
+
         @if (\App\Helpers\AuthHelper::isAdminOrSuperAdmin())
             <a href="{{ route('user.manage') }}" class="flex items-center px-4 py-3 mb-4 hover:bg-cyan-400 rounded-md" id="kelola-ulasan-sidebar-btn">
                 <img src="https://img.icons8.com/ios-filled/24/ffffff/user.png" alt="Kelola Ulasan Icon" class="mr-3">
@@ -40,7 +46,9 @@
 const ICON_URLS = {
         dashboard: "https://img.icons8.com/ios-filled/24/06b6d4/speedometer.png",
         kelolaWisata: "https://img.icons8.com/ios-filled/24/06b6d4/city-hall.png",
-        kelolaUlasan: "https://img.icons8.com/ios-filled/24/06b6d4/chat.png"
+        kelolaUlasan: "https://img.icons8.com/ios-filled/24/06b6d4/chat.png",
+        kelolaTiket: "https://img.icons8.com/ios-filled/24/06b6d4/ticket.png"
+
     };
 
     function lightSidebarDashboardBtn() {
@@ -62,6 +70,13 @@ const ICON_URLS = {
         btn.classList.add('bg-white', 'text-cyan-500');
         btn.classList.remove('hover:bg-cyan-400');
         btn.querySelector('img').src = ICON_URLS.kelolaUlasan;
+    }
+
+    function lightSidebarKelolaTiketBtn() {
+        let btn = document.getElementById("kelola-tiket-sidebar-btn");
+        btn.classList.add('bg-white', 'text-cyan-500');
+        btn.classList.remove('hover:bg-cyan-400');
+        btn.querySelector('img').src = ICON_URLS.kelolaTiket;
     }
 
 </script>
