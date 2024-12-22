@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\ManageDestinationController;
@@ -30,6 +31,7 @@ Route::post('/api/visitor-data', [VisitorController::class, 'getVisitorData']); 
 Route::get('/tentangkami',function(){
 return view('visitor-pages.pages.tentangkami');
 } );
+// testing halaman
 Route::get('/kelola-wisata',function(){
 return view('visitor-pages.pages.kelola-wisata');
 } );
@@ -38,6 +40,18 @@ return view('visitor-pages.pages.kelola-wisata');
 Route::get('/booking/pesanan/selesai',function(){
 return view('visitor-pages.pages.booking.pesanan.selesai');
 } );
+Route::get('/booking/pesanan/detail-pesanan',function(){
+return view('visitor-pages.pages.booking.pesanan.detail-pesanan');
+} );
+Route::get('/kelola-tiket',function(){
+return view('admin-pages.pages.kelola-tiket');
+} );
+Route::get('/konfirmasi-tiket',function(){
+return view('admin-pages.pages.detail-tiket');
+} );
+
+
+
 
 
 
@@ -75,6 +89,7 @@ Route::middleware(MustAdminsMiddleware::class)->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard'); // Dashboard Admin
     Route::get('/admin/kelola-wisata', [ManageDestinationController::class, 'index'])->name('admin.manage.destination'); // Kelola tempat wisata
     Route::get('/admin/kelola-ulasan', [ManageComments::class, 'index'])->name('admin.manage.comment'); // Kelola ulasan
+    Route::get('/admin/kategori-wisata', [CategoryController::class, 'index'])->name('admin.kategori-wisata'); // Kelola wisata
     Route::get('/admin/tempat-wisata/{id}/ubah', [DestinationController::class, 'indexEditDestination'])->name('destination.edit.show'); // Ubah tempat wisata
     Route::get('/admin/tempat-wisata/tambah', [DestinationController::class, 'indexAddDestination'])->name('destination.add.show'); // Tambah tempat wisata
 
@@ -83,6 +98,14 @@ Route::middleware(MustAdminsMiddleware::class)->group(function () {
     Route::delete('/admin/tempat-wisata/{id}/hapus', [ManageDestinationController::class, 'deleteDestination'])->name('destination.destroy'); // Hapus tempat wisata
     Route::post('/admin/tempat-wisata/tambah', [DestinationController::class, 'createDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
     Route::put('/admin/tempat-wisata/ubah', [DestinationController::class, 'updateDestination'])->name('destination.update'); // Proses penyimpanan data tempat wis
+
+    Route::post('admin/kategori-wisata/store', [CategoryController::class, 'store'])->name('admin.kategori-wisata.store');
+    Route::post('admin/kategori-wisata/update', [CategoryController::class, 'update'])->name('admin.kategori-wisata.update');
+    Route::get('admin/kategori-wisata/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.kategori-wisata.destroy');
+
+
+
+
 });
 
 // Route Manajemen Admin (Middleware Admin dengan level akses tert  entu)
