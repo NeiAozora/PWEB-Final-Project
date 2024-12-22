@@ -2,9 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\Common;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use function Laravel\Prompts\alert;
 
 class AuthMiddleware
 {
@@ -13,10 +16,10 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        dd(Auth::check());
         if (!Auth::check()) {
             // Jika user belum login, redirect ke halaman login
-            return redirect()->route('login');
+            Common::alertAndRedirect('Maaf anda harus login terlebih dahulu', route('login'));
+
         }
 
         return $next($request);

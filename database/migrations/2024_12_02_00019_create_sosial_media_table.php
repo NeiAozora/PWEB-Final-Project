@@ -31,8 +31,8 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             // Foreign key to platform_sosial_media table
-            $table->bigInteger('tipe_sosial_media');
-            $table->foreign('tipe_sosial_media')
+            $table->bigInteger('id_platform');
+            $table->foreign('id_platform')
                 ->references('id_platform') // Reference column in platform_sosial_media
                 ->on('platform_sosial_media')
                 ->onUpdate('cascade')
@@ -48,7 +48,7 @@ return new class extends Migration
         // Drop sosial_media table first (to remove dependencies)
         Schema::table('sosial_media', function (Blueprint $table) {
             $table->dropForeign(['id_tempat_wisata']);
-            $table->dropForeign(['tipe_sosial_media']);
+            $table->dropForeign(['id_platform']);
         });
         Schema::dropIfExists('sosial_media');
 

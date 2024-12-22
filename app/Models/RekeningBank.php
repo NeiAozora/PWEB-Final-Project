@@ -26,11 +26,12 @@ class RekeningBank extends Model
     protected $fillable = [
         'nama_bank',
         'nomer_rekening',
+        'id_tempat_wisata'
     ];
 
     public function tempat_wisata()
     {
-        return $this->hasMany(TempatWisata::class, 'id_rekening_bank');
+        return $this->belongsTo(TempatWisata::class, 'id_tempat_wisata');
     }
 
     public function pembayaran()

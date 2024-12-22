@@ -75,6 +75,6 @@ class TempatWisata extends Model
 
     public function rekening_bank()
     {
-        return $this->belongsTo(RekeningBank::class, 'id_rekening_bank');
+        return $this->hasMany(RekeningBank::class, 'id_tempat_wisata');
     }
 }

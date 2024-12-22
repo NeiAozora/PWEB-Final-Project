@@ -24,24 +24,35 @@ class ManageDestinationController extends Controller
         $destination = $tempatWisata->get();
 
         $destinations =  $destination->map(function ($destination) {
+        $gambar = optional($destination->gambar_tempat_wisata->first())->url_gambar ?? 'https://placehold.co/286x198.png?text=No+Image';
 
             return (object) [
                 'id' => $destination->id_tempat_wisata,
                 'nama' => $destination->nama,
                 'alamat' => optional($destination->alamat)->jalan . ', ' . optional($destination->alamat)->kota,
-                'gambar' => optional($destination->gambar_tempat_wisata->first())->url_gambar ?? 'https://placehold.co/286x198.png?text=No+Image',
+                'gambar' => $gambar,
                 'rating_rata_rata' => round($destination->ulasan->avg('nilai_rating'), 1) ?? 0
             ];
         });
 
-
-
         return view('admin-pages.pages.kelola-tempat-wisata', ['destinations' => $destinations]);
     }
 
-        public function deleteDestination(Request $request){
-        dd($request);
+    public function deleteDestination($id)
+    {
+        // Cari data berdasarkan ID
+        $destination = TempatWisata::find($id);
 
+        // Jika data tidak ditemukan, beri respons error
+        if (!$destination) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan!');
+        }
+
+        // Hapus data
+        $destination->delete();
+
+        // Redirect ke halaman tertentu dengan pesan sukses
+        return redirect()->route('admin.manage.destination');
     }
 
 }

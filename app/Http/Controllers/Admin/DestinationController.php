@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Nette\Utils\Random;
 use App\Http\Controllers\Admin\Str;
+use App\Models\RekeningBank;
 
 class DestinationController extends Controller
 {
@@ -32,6 +33,7 @@ class DestinationController extends Controller
             'kategori_wisata.kategori',
             'fasilitas',
             'tipe_tiket.hari',
+            'rekening_bank'
         ]);
 
         if(Auth::user()->id_role == 3){
@@ -40,6 +42,8 @@ class DestinationController extends Controller
 
 
         $destination = $query->where('id_tempat_wisata', $id)->get();
+
+        // dd($destination);
 
         if (empty($destination->toArray())){
             return back(404);
@@ -51,7 +55,6 @@ class DestinationController extends Controller
 
         return view('admin-pages.pages.buat-edit-tempat-wisata', ['isEditMode' => true, 'destination' => $destination[0], 'sosialMediaLinks' => $sosialMediaLinks]);
     }
-
 
     public function indexAddDestination(Request $request){
         return view('admin-pages.pages.buat-edit-tempat-wisata', ['isEditMode' => false]);
@@ -198,10 +201,12 @@ class DestinationController extends Controller
     public function updateDestination(Request $request){
         $requestData = $request->all();
 
+
         $fileData = $request->files->all();
 
         $parsedData = $this->parseRequestData($requestData, $fileData);
 
+        // dd($parsedData, $requestData);
 
         // Use Validator for validation
         $validator = Validator::make($parsedData, [
@@ -232,7 +237,7 @@ class DestinationController extends Controller
             'gambar_for_deletion' => 'nullable|array',
             'gambar_for_deletion.*.id_gambar' => 'required|exists:gambar_tempat_wisata,id',
             'gambar' => 'nullable|array',
-            'gambar.*.gambar_tempat_wisata' => 'nullable|file|image|max:2048',
+            'gambar.*.gambar_tempat_wisata' => 'nullable|file|image|max:4448',
             'gambar.*.id_gambar_tempat_wisata' => 'nullable|numeric',
         ]);
 
@@ -268,7 +273,12 @@ class DestinationController extends Controller
 
         $fasilitas = $validated['fasilitas'] ?? [];
         $tiket = $validated['tiket'] ?? [];
+        $rekeningBank = $validated['rekening_bank'] ?? [];
         $gambarForDeletion = $validated['gambar_for_deletion'] ?? [];
+        $facilityForDeletion = $validated['facilty_for_deletion'] ?? [];
+        $ticketForDeletion = $validated['ticket_for_deletion'] ?? [];
+        $rekeningBankForDeletion = $validated['rekening_bank_for_deletion'] ?? [];
+
         $gambar = $validated['gambar'] ?? [];
 
         // Update main TempatWisata details
@@ -289,6 +299,16 @@ class DestinationController extends Controller
             'jalan' => $jalan,
         ]);
 
+        // Delete Facilites
+
+        foreach ($facilityForDeletion as $facilityToDelete) {
+            $idFasilitas = $facilityToDelete['id_fasilitas'] ?? null;
+            $fasilitas = Fasilitas::where( 'id_fasilitas', $idFasilitas )->first();
+            if ($fasilitas) {
+                $fasilitas->delete();
+            }
+        }
+
         // Update facilities
         foreach ($fasilitas as $facility) {
             $idFasilitas = $facility['id_fasilitas'] ?? null;
@@ -305,6 +325,17 @@ class DestinationController extends Controller
                     'id_tempat_wisata' => $tempatWisata->id_tempat_wisata,
                     'nama_fasilitas' => $namaFasilitas,
                 ]);
+            }
+        }
+
+        // Delete tickets
+
+        foreach ($ticketForDeletion as $ticketToDelete) {
+
+            $idTiket = $ticketToDelete['id_tipe_tiket'] ?? null;
+            $tiket = TipeTiket::where( 'id_tipe_tiket', $idTiket)->first();
+            if ($tiket) {
+                $tiket->delete();
             }
         }
 
@@ -353,6 +384,30 @@ class DestinationController extends Controller
                 ]);
 
             }
+        }
+
+
+        foreach($rekeningBank as $rekening){
+            if ($rekening['id_rekening_bank'] == 0){
+                //insert
+                $rekeningBank = RekeningBank::create([
+                    'nama_bank' => $rekening['nama_bank'],
+                    'nomer_rekening' => $rekening['nomer_rekening'],
+                    'id_tempat_wisata' => $tempatWisata->id_tempat_wisata
+                ]);
+            } else {
+                // update
+                $rekeningBank = RekeningBank::where('id_rekening_bank', $rekening['id_rekening_bank'])->first();
+                $rekeningBank->nama_bank = $rekening['nama_bank'];
+                $rekeningBank->nomer_rekening = $rekening['nomer_rekening'];
+                $rekeningBank->save();
+            }
+
+        }
+
+        foreach($rekeningBankForDeletion as $rekeningBank){
+            $rekeningBank = RekeningBank::where('id_rekening_bank', $rekeningBank['id_rekening_bank'])->first();
+            $rekeningBank->delete();
         }
 
         // Delete images marked for deletion
@@ -411,9 +466,13 @@ class DestinationController extends Controller
     {
         $result = [];
         $fasilitas = [];
+        $rekeningBank = [];
         $tiket = [];
         $gambar = [];
         $gambarForDeletion = [];
+        $ticketForDeletion = [];
+        $facilityForDeletion = [];
+        $rekeningBankForDeletion = [];
 
         // Process the data
         foreach ($requestData as $key => $value) {
@@ -448,8 +507,31 @@ class DestinationController extends Controller
                     $tiket[$index]['waktu_berakhir'] = $value;
                 }
 
+                elseif ($baseKey === 'id_rekening_bank'){
+                    $rekeningBank[$index]['id_rekening_bank'] = $value;
+                }
+                elseif ($baseKey === 'nama_bank'){
+                    $rekeningBank[$index]['nama_bank'] = $value;
+                }
+                elseif ($baseKey === 'nomer_rekening'){
+                    $rekeningBank[$index]['nomer_rekening'] = $value;
+                }
+
+
                 elseif ($baseKey === 'id_gambar_to_delete'){
                     $gambarForDeletion[$index]['id_gambar'] = $value;
+                }
+
+                elseif ($baseKey === 'id_facility_to_delete'){
+                    $facilityForDeletion[$index]['id_fasilitas'] = $value;
+                }
+
+                elseif ($baseKey === 'id_ticket_to_delete'){
+                    $ticketForDeletion[$index]['id_tipe_tiket'] = $value;
+                }
+
+                elseif ($baseKey === 'id_rekening_bank_to_delete'){
+                    $rekeningBankForDeletion[$index]['id_rekening_bank'] = $value;
                 }
 
 
@@ -462,7 +544,12 @@ class DestinationController extends Controller
         // Reindex 'fasilitas' and 'tiket' arrays to have 0-based indexing
         $result['fasilitas'] = array_values($fasilitas);
         $result['tiket'] = array_values($tiket);
+        $result['rekening_bank'] = array_values($rekeningBank);
         $result['gambar_for_deletion'] = array_values($gambarForDeletion);
+        $result['ticket_for_deletion'] = array_values($ticketForDeletion);
+        $result['facility_for_deletion'] = array_values($facilityForDeletion);
+        $result['rekening_bank_for_deletion'] = array_values($rekeningBankForDeletion);
+
 
         // Process the files and ID pair (e.g., gambar_tempat_wisata_1)
         foreach ($fileData as $key => $file) {

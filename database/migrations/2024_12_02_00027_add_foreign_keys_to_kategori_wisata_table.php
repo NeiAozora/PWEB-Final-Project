@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('kategori_wisata', function (Blueprint $table) {
             $table->foreign(['id_kategori'], 'kategori_fk')->references(['id_kategori'])->on('kategori')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreign(['id_tempat_wisata'], 'kategori_tempat_wisata_fk')->references(['id_tempat_wisata'])->on('tempat_wisata')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign(['id_tempat_wisata'], 'kategori_tempat_wisata_fk')->references(['id_tempat_wisata'])->on('tempat_wisata')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

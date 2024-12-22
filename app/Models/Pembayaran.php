@@ -15,14 +15,12 @@ class Pembayaran extends Model
 
     protected $fillable = [
         'id_pesanan',
-        'metode_pembayaran',
         'bukti_pembayaran',
         // 'status', // dimatikan karena business logic otomatis harus mengirim bukti pembayaran sebelum
-        'dibuat_saat'
     ];
 
     // Relation to PesananTiket (many to one)
-    public function pesananTiket()
+    public function pesanan_tiket()
     {
         return $this->belongsTo(PesananTiket::class, 'id_pesanan');
     }

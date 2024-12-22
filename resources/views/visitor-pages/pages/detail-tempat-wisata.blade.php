@@ -9,14 +9,14 @@
         <!-- Image Section -->
         <div class="flex-shrink-0 w-1/2 over" style="width: 600px; height: 400px">
             @if ($destination->gambar_tempat_wisata && $destination->gambar_tempat_wisata->first())
-                <img id="destinationImage" 
-                    src="{{ asset($destination->gambar_tempat_wisata->first()['url_gambar']) }}" 
-                    alt="{{ $destination->nama }}" 
+                <img id="destinationImage"
+                    src="{{ asset($destination->gambar_tempat_wisata->first()['url_gambar']) }}"
+                    alt="{{ $destination->nama }}"
                     class="w-full h-full object-cover rounded-lg shadow-lg">
             @else
-                <img id="destinationImage" 
-                    src="{{ asset('default-image.jpg') }}" 
-                    alt="Default Image" 
+                <img id="destinationImage"
+                    src="{{ asset('default-image.jpg') }}"
+                    alt="Default Image"
                     class="w-full h-full object-cover rounded-lg shadow-lg">
             @endif
 
@@ -86,19 +86,36 @@
                     <!-- First Price Section -->
                     @foreach ($destination->tipe_tiket as $ticket)
                         <div class="text-lg">
-                            <span>{{ $ticket['nama_tipe'] }}</span><br>
+                            <span class=" font-semibold">{{ $ticket['nama_tipe'] }}</span><br>
+                            @if ($ticket->hari[0]->nama_hari != $ticket->hari[1]->nama_hari )
+                            <span>{{ $ticket->hari[0]->nama_hari }} - {{ $ticket->hari[1]->nama_hari  }}</span><br>
+                            @else
+                            <span>{{ $ticket->hari[0]->nama_hari }}</span><br>
+                            @endif
                             <span class="font-bold text-cyan-500">Rp {{ number_format($ticket['harga'], 0, ',', '.') }}</span>
                         </div>
                     @endforeach
                 </div>
             </div>
 
+            @php
+                $whatsappLink = $sosialMedia['Whatsapp'];
+            @endphp
+
             <!-- WhatsApp Contact Button -->
             <div class="mt-6 max-w-sm">
-                <a href="https://wa.me/" class="bg-green-500 hover:bg-green-600 text-white flex items-center justify-center px-6 py-3 rounded-lg text-lg font-medium space-x-3 transition">
+                <a href="{{ $whatsappLink ?: '#' }}"
+                   class="{{ $whatsappLink ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 text-gray-500 cursor-not-allowed' }}
+                          flex items-center justify-center px-6 py-3 rounded-lg text-lg font-medium space-x-3 transition"
+                   title="{{ $whatsappLink ? '' : 'WhatsApp link is not available' }}">
                     <img class="h-6 w-6" src="{{ asset('assets/images/icons/whatsapp.svg') }}" alt="">
                     <span>WhatsApp Pengelola</span>
                 </a>
+            </div>
+            <div class="mt-6 max-w-sm">
+                <a
+                class="flex items-center justify-center px-6 py-3 rounded-lg text-lg font-medium space-x-3 transition bg-cyan-500 text-white hover:bg-cyan-800"
+                href="{{ route('destination.booking', ['tempat-wisata' => $destination->id_tempat_wisata]) }}">Beli Tiket</a>
             </div>
         </div>
     </div>
@@ -107,6 +124,45 @@
     <div class="px-32 py-7">
         <div class="bg-gray-100 flex justify-center items-center">
             <div class="bg-white shadow-md rounded-lg p-6 max-w-full w-full">
+                @if (!empty(array_filter($sosialMedia)))
+                    <h1 class="text-xl font-bold text-cyan-500 mb-4">Sosial Media</h1>
+                    <div class="flex items-center space-x-4">
+                        <!-- Instagram -->
+                        @if(!empty($sosialMedia['instagram']))
+                        <div class="flex items-center">
+                            <img src="https://img.icons8.com/fluency/48/000000/instagram-new.png" alt="Instagram" class="w-6 h-6 mr-2" />
+                            <a href="{{ $sosialMedia['instagram'] }}" target="_blank" class="text-lg font-medium">Instagram</a>
+                        </div>
+                        <span class="text-gray-600">|</span>
+                        @endif
+                        <!-- Website -->
+                        @if(!empty($sosialMedia['website']))
+                        <div class="flex items-center">
+                            <img src="https://img.icons8.com/color/48/000000/internet.png" alt="Website" class="w-6 h-6 mr-2" />
+                            <a href="{{ $sosialMedia['website'] }}" target="_blank" class="text-lg font-medium">Website</a>
+                        </div>
+                        <span class="text-gray-600">|</span>
+                        @endif
+                        <!-- YouTube -->
+                        @if(!empty($sosialMedia['youtube']))
+                        <div class="flex items-center">
+                            <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="YouTube" class="w-6 h-6 mr-2" />
+                            <a href="{{ $sosialMedia['youtube'] }}" target="_blank" class="text-lg font-medium">YouTube</a>
+                        </div>
+                        <span class="text-gray-600">|</span>
+                        @endif
+                        <!-- TikTok -->
+                        @if(!empty($sosialMedia['tiktok']))
+                        <div class="flex items-center">
+                            <img src="https://img.icons8.com/fluency/48/000000/tiktok.png" alt="TikTok" class="w-6 h-6 mr-2" />
+                            <a href="{{ $sosialMedia['tiktok'] }}" target="_blank" class="text-lg font-medium">Tiktok</a>
+                        </div>
+                        @endif
+                    </div>
+                @endif
+
+
+
                 <h1 class="text-xl font-bold text-cyan-500 mb-4">Tentang {{ $destination->nama }}</h1>
                 <p class="text-gray-700 bg-gray-100 p-4 rounded-md mb-6">
                     {{ $destination->deskripsi }}
@@ -173,7 +229,7 @@
                                                 <img src="{{ asset('assets/images/icons/gray-star.svg') }}" alt="Star" class="w-5 h-5">
                                             </span>
                                         </div>
-    
+
                                         <input type="hidden" id="rating" name="rating" value="0">
                                     </div>
                                     <input
@@ -182,7 +238,7 @@
                                         aria-label="Isi komentar"
                                         placeholder="Tulis komentar anda di sini..."
                                         class="w-full border-b focus:outline-none focus:border-cyan-600">
-                                  
+
                                     <button type="submit" id="kirim-ulasan" class="  bg-cyan-600 px-4 py-2 rounded-lg hover:bg-cyan-700 text-white mb-4">
                                         Kirim Ulasan
                                     </button>

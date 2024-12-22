@@ -18,7 +18,7 @@ class PesananTiket extends Model
         'total_harga',
         'jumlah_tiket',
         'dibuat_saat',
-        'status' // menunggu verifikasi, selesai, dibatalkan
+        'status' // menunggu verifikasi, selesai,
     ];
 
     // Relation to Pengguna (many to one)

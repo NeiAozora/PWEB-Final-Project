@@ -16,9 +16,12 @@ class Tiket extends Model
     protected $fillable = [
         'id_tipe_tiket',
         'id_pesanan_tiket',
-        'dibuat_saat',
+        'tanggal_kunjungan',
         'berlaku_sampai',
+        'jumlah_tiket',
+        'harga_per_unit',
         'status' // aktif, telah digunakan, kadaluarsa
+
     ];
 
     // Relation to PesananTiket (many to one)

@@ -31,6 +31,7 @@
                     @if (\App\Helpers\AuthHelper::isDasboardRequired())
                         <li><a href="{{ route('admin.dashboard') }}" class="text-sm text-cyan-600 hover:underline">Dashboard Admin</a></li>
                     @endif
+                    <li><a href="{{ route('booking.list') }}" class="text-sm text-cyan-600 hover:underline">Daftar Pesanan Tiketku</a></li>
                     <li><a href="{{ route('profile') }}" class="text-sm text-cyan-600 hover:underline">View Profile</a></li>
                     <li><a href="{{ route('profile.settings') }}" class="text-sm text-cyan-600 hover:underline">Settings</a></li>
                     <li><a href="{{ route('logout') }}" class="text-sm text-cyan-600 hover:underline">Logout</a></li>

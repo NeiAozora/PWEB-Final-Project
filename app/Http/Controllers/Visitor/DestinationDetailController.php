@@ -18,15 +18,36 @@ class DestinationDetailController extends Controller
         'fasilitas',
         'ulasan.pengguna', // Direct relationship
         'tipe_tiket.hari',
+        'sosial_media.platform'
     ]);
 
     $result = $query->where('id_tempat_wisata', $id)->get();
+
+    // dd($result);
+
+    $sosialMedia = [
+        'Whatsapp' => null,
+        'Instagram' => null,
+        'Tiktok' => null,
+        'Youtube' => null,
+        'Website' => null,
+    ];
+
+    foreach ($result as $tempatWisata) {
+        foreach ($tempatWisata->sosial_media as $s) {
+            $sosialMedia[$s->platform->nama_platform] = $s->link_sosial_media;
+        }
+    }
+
+
 
     if (empty($result->toArray())){
         return back(404);
     }
 
-    return view('visitor-pages.pages.detail-tempat-wisata', ['destination' => $result[0]]);
+    // dd($result);
+
+    return view('visitor-pages.pages.detail-tempat-wisata', ['destination' => $result[0]], compact('sosialMedia'));
    }
     //
 }

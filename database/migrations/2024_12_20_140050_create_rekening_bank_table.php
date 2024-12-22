@@ -14,18 +14,17 @@ return new class extends Migration
                 $table->bigInteger('id_rekening_bank')->primary()->autoIncrement();
                 $table->string('nama_bank', 100); // Name of the bank
                 $table->string('nomer_rekening', 50); // Account number
+
+                $table->bigInteger('id_tempat_wisata')->nullable()->index('tempat_wisata_tempat_wisata_fk');
+
+                $table->foreign('id_tempat_wisata')
+                    ->references('id_tempat_wisata')
+                    ->on('tempat_wisata')
+                    ->nullOnDelete();
+
                 $table->timestamps(); // For created_at and updated_at
             });
 
-            // Add foreign key to Tempat_Wisata
-            Schema::table('tempat_wisata', function (Blueprint $table) {
-                $table->bigInteger('id_rekening_bank')->nullable()->index('tempat_wisata_rekening_bank_fk');
-
-                $table->foreign('id_rekening_bank')
-                    ->references('id_rekening_bank')
-                    ->on('rekening_bank')
-                    ->nullOnDelete();
-            });
 
             // Add foreign key to Pembayaran
             Schema::table('pembayaran', function (Blueprint $table) {
@@ -41,9 +40,9 @@ return new class extends Migration
         public function down()
         {
             // Drop foreign key from Tempat_Wisata
-            Schema::table('tempat_wisata', function (Blueprint $table) {
-                $table->dropForeign('tempat_wisata_rekening_bank_fk');
-                $table->dropColumn('id_rekening_bank');
+            Schema::table('rekening_bank', function (Blueprint $table) {
+                $table->dropForeign('rekening_bank_tempat_wisata_fk');
+                $table->dropColumn('id_tempat_wisata');
             });
 
             // Drop foreign key from Pembayaran

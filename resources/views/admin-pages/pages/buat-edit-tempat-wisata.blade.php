@@ -18,6 +18,9 @@
                 <textarea name="description" placeholder="Masukkan Deskripsi Tempat Wisata" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400">{{ old('deskripsi', $isEditMode ? $destination->deskripsi : '') }}</textarea>
             </div>
 
+
+            {{-- Fasilitas --}}
+
             <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-2">Fasilitas</label>
                 <div class="flex gap-2 mb-2 max-w-96">
@@ -35,12 +38,142 @@
                         <div class="border-cyan-500 p-1 border-2 rounded-md flex gap-1" data-id="{{ $i+1 }}">
                             <input type="text" name="nama_fasilitas_{{ $i+1 }}" value="{{ old('nama_fasilitas_'.$i+1, $fasilitas->nama_fasilitas) }}" class="p-2" required />
                             <input type="hidden" name="id_fasilitas_{{ $i+1 }}" value="{{ old('id_fasilitas_'.$i+1, $fasilitas->id_fasilitas) }}" />
-                            <button type="button" class="bg-cyan-500 rounded-sm text-white px-2" onclick="removeFacility(this); checkIfEmpty();">x</button>
+                            <button type="button" class="bg-cyan-500 rounded-sm text-white px-2" onclick="removeFacility(this); checkIfFacilitiesEmpty();">x</button>
                         </div>
                     @endforeach
                     @endif
                 </div>
             </div>
+
+
+            {{-- End of Fasilitas --}}
+
+
+            {{-- Nomer Rekening --}}
+
+            <div class="bg-white my-2 rounded-lg w-full max-w-lg">
+                <h2 class="block text-gray-700 font-semibold mb-2">Rekening Bank</h2>
+                <div class="flex items-center gap-2 p-2 border border-gray-300 mb-4">
+                    <input id="nama-bank" type="text" placeholder="Nama Bank..." class="border border-gray-300 rounded-md px-3 py-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    <input id="nomer-rekening" type="text" placeholder="Nomor Rekening" class="border border-gray-300 rounded-md px-3 py-2 w-1/2 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    <button type="button" id="btn-tambah-rekening" class="bg-cyan-500 text-white px-4 py-2 rounded-md hover:bg-cyan-600">Tambah</button>
+                </div>
+                <div id="input-bank-account-for-deletion-container">
+
+                </div>
+                <ul id="daftar-rekening" class="space-y-2">
+                    @if ($isEditMode && !empty($destination->rekening_bank))
+                    @foreach ($destination->rekening_bank as $i => $rekeningBank)
+                    <li class='flex gap-1' data-id="{{ $i+1 }}">
+                        <div class="border-cyan-500 p-1 border-2 rounded-md flex gap-1">
+                            <input type="text" name="id_rekening_bank_{{ $i+1 }}" value="{{ $rekeningBank->id_rekening_bank }}" class="hidden">
+                            <input type='text' name="nama_bank_{{ $i+1 }}" value='{{ $rekeningBank->nama_bank }}' class='border border-gray-300 rounded-md px-2 py-1 w-1/3 focus:outline-none focus:ring-cyan-500'>
+                            <input type='number' name="nomer_rekening_{{ $i+1 }}" value='{{ $rekeningBank->nomer_rekening }}' class='border border-gray-300 rounded-md px-2 py-1 w-1/2 focus:outline-none focus:ring-cyan-500'>
+                        </div>
+                        <button type="button" class='bg-cyan-500 rounded-sm text-white px-2' onclick="removeAccountBtnFunction(this)">X</button>
+                    </li>
+                    @endforeach
+                    @else
+                    <p class="text-gray-500 italic p-2">Anda belum menambahkan rekening bank</p>
+                    @endif
+                </ul>
+            </div>
+
+            <script>
+                const bankNameInput = document.getElementById('nama-bank');
+                const accountNumberInput = document.getElementById('nomer-rekening');
+                const addButton = document.getElementById('btn-tambah-rekening');
+                let accountList = document.getElementById('daftar-rekening');
+
+                addButton.addEventListener('click', () => {
+                    const bankName = bankNameInput.value.trim();
+                    const accountNumber = accountNumberInput.value.trim();
+
+                    if (!bankName || !accountNumber) {
+                        alert('Harap isi Nama Bank dan Nomor Rekening.');
+                        return;
+                    }
+
+                    let i = accountList.children.length;
+                    i++;
+
+                    // Hapus pesan "Anda belum menambahkan fasilitas" jika ada
+                    const firstChild = accountList.firstElementChild;
+                    if (firstChild && firstChild.tagName === "P") {
+                        accountList.innerHTML = "";
+                    }
+
+                    const listItemHTML = `<li class='flex gap-1' data-id='${i}'>
+                        <div class="border-cyan-500 p-1 border-2 rounded-md flex gap-1">
+                            <input type="text" name="id_rekening_bank_${i}" value="0" class="hidden">
+                            <input type='text' name="nama_bank_${i}" value='${bankName}' class='border border-gray-300 rounded-md px-2 py-1 w-1/3 focus:outline-none focus:ring-2 focus:ring-cyan-500'>
+                            <input type='number' name="nomer_rekening_${i}" value='${accountNumber}' class='border border-gray-300 rounded-md px-2 py-1 w-1/2 focus:outline-none focus:ring-2 focus:ring-cyan-500'>
+                        </div>
+                        <button type="button" class='bg-cyan-500 rounded-sm text-white px-2'>X</button>
+                    </li>`;
+
+
+                    let listItem = createElementFromHTML(listItemHTML);
+
+                    // Create a closure to capture the current value of listItem
+                    listItem.querySelector('button').addEventListener('click', (function(currentListItem) {
+                        return function(event) {
+                            removeAccount(event, currentListItem);
+                        };
+                    })(listItem));
+
+
+                    accountList.appendChild(listItem);
+
+                    bankNameInput.value = '';
+                    accountNumberInput.value = '';
+                    bankNameInput.focus();
+                });
+
+                function removeAccountBtnFunction(element){
+                    let listItem = element.parentElement;
+                    removeAccount(element, listItem)
+                }
+
+                function removeAccount(element, listItem) {
+                    const bankAccountElement = event.target.closest("li[data-id]");
+
+                    const bankAccountInput = bankAccountElement.querySelector('input[name^="id_rekening_bank_"]');
+                    const bankAccountId = bankAccountInput.value;
+
+                    if (bankAccountId != 0) {
+                        if (!confirm("Yakin ingin menghapus rekening bank ini?")) {
+                            return;
+                        }
+                    }
+
+
+
+                    if(bankAccountId != "0"){
+                        markbankAccountForDeletion(bankAccountId, bankAccountElement.getAttribute('data-id'));
+                    }
+
+                    accountList.removeChild(listItem);
+                    checkIfBankAccountEmpty();
+
+                }
+
+                function markbankAccountForDeletion(id, dataIdIteration){
+                    const backAccountContainer = document.querySelector("#input-bank-account-for-deletion-container");
+                    const inputForDeletion = createElementFromHTML(`<input class="hidden" name="id_rekening_bank_to_delete_${dataIdIteration}" value="${id}">`);
+                    backAccountContainer.appendChild(inputForDeletion)
+                }
+
+
+                function checkIfBankAccountEmpty() {
+                    const facilityList = document.getElementById("daftar-rekening");
+                    if (!facilityList.children.length) {
+                        facilityList.innerHTML = '<p class="text-gray-500 italic p-2">Anda belum menambahkan Rekening Bank</p>';
+                    }
+                }
+            </script>
+
+            {{-- End Nomer Rekening --}}
 
 
             {{-- Foto Tempat Wisata --}}
@@ -89,7 +222,7 @@
                                value="{{ old('provinsi', $isEditMode ? $destination->alamat->provinsi : '') }}"
                                required />
                     </div>
-                    <div>   
+                    <div>
                         <label class="block text-gray-700 font-semibold mb-1">Kabupaten</label>
                         <input name="kabupaten"
                                placeholder="Isi Kabupaten"
@@ -148,13 +281,16 @@
 <div class="mb-4">
     <label class="block text-gray-700 font-semibold mb-2">Jam Buka & Harga Tiket</label>
     <button type="button" class="p-2 rounded-lg my-4 border bg-cyan-500 hover:bg-cyan-700 text-white transition" id="addTicketButton">Tambah Tiket baru</button>
+    <div id="input-tickets-deletion-container">
+
+    </div>
     <div id="ticketsContainer" class="grid grid-cols-3 gap-6">
         @if (empty($destination->tipe_tiket))
             <p class="text-gray-500 italic p-2" id="noTicketMessage">Anda belum menambahkan tiket</p>
         @else
         @php $i = 1; @endphp
         @foreach ($destination->tipe_tiket as $tipe_tiket)
-        <div class="p-4 border border-gray-300 rounded-md mb-4">
+        <div class="p-4 border border-gray-300 rounded-md mb-4" data-id="{{ $i }}">
             <div class="block my-4">
                 <div class="flex w-full">
                     <label for="nama_tipe_{{ $i }}" class="font-medium text-gray-800">Nama tipe tiket :</label>
@@ -285,7 +421,6 @@
     document.getElementById("addFacilityButton").addEventListener("click", function () {
         const facilityInput = document.getElementById("facilityInput");
         const facilityContainer = document.getElementById("facilityContainer");
-        const emptyMessage = document.getElementById("emptyMessage");
 
         // Ambil nilai input
         const facilityName = facilityInput.value.trim();
@@ -296,8 +431,9 @@
         }
 
         // Hapus pesan "Anda belum menambahkan fasilitas" jika ada
-        if (emptyMessage) {
-            emptyMessage.remove();
+        const firstChild = facilityContainer.firstElementChild;
+        if (firstChild && firstChild.tagName === "P") {
+            facilityContainer.innerHTML = "";
         }
 
         // Hitung jumlah fasilitas saat ini
@@ -308,7 +444,7 @@
             <div class="border-cyan-500 p-1 border-2 rounded-md flex gap-1">
                 <input type="text" name="nama_fasilitas_${facilityCount}" value="${facilityName}" class="p-2" required>
                 <input type="text" name="id_fasilitas_${facilityCount}" value="0" class="hidden">
-                <button type="button" class="bg-cyan-500 rounded-sm text-white px-2" onclick="removeFacility(this); checkIfEmpty()">x</button>
+                <button type="button" class="bg-cyan-500 rounded-sm text-white px-2" onclick="removeFacility(this); checkIfFacilitiesEmpty()">x</button>
             </div>
         `;
 
@@ -319,6 +455,8 @@
     });
 
     function removeFacility(element) {
+        const facilityElement = event.target.closest("div[data-id]");
+
         const facilityInput = element.parentElement.querySelector('input[name^="id_fasilitas_"]');
         const facilityId = facilityInput.value;
 
@@ -327,11 +465,25 @@
                 return;
             }
         }
-        element.parentElement.remove();
-    }
 
-    function checkIfEmpty() {
-        const facilityList = document.getElementById("ticketContainer");
+        if(facilityId != "0"){
+            markFacilityForDeletion(facilityId, facilityElement.getAttribute('data-id'));
+        }
+
+        element.parentElement.remove();
+
+        }
+
+        function markFacilityForDeletion(id, dataIdIteration){
+            const FacilityContainer = document.querySelector("#input-facilities-deletion-container");
+            const inputForDeletion = createElementFromHTML(`<input class="hidden" name="id_facility_to_delete_${dataIdIteration}" value="${id}">`);
+            FacilityContainer.appendChild(inputForDeletion)
+        }
+
+
+
+    function checkIfFacilitiesEmpty() {
+        const facilityList = document.getElementById("facilityContainer");
         if (!facilityList.children.length) {
             facilityList.innerHTML = '<p class="text-gray-500 italic p-2" id="noFacilityMessage">Anda belum menambahkan fasilitas</p>';
         }
@@ -447,6 +599,7 @@
         i++;
 
         let newTicket = document.createElement("div");
+        newTicket.setAttribute("data-id", $i);
         newTicket.classList.add("p-4", "border", "border-gray-300", "rounded-md", "mb-4");
 
         newTicket.innerHTML = `
@@ -510,6 +663,8 @@
     }
 
     function removeTicket(element) {
+        const ticketElement = element.parentElement.parentElement.parentElement;
+
         const ticketInput = element.parentElement.parentElement.querySelector('input[name^="id_tipe_tiket_"]');
         const ticketId = ticketInput.value;
 
@@ -519,7 +674,18 @@
 
         ticketInput.parentElement.parentElement.remove();
         checkTicketIfEmpty();
+
+        if(ticketId !== "0"){
+            markTicketForDeletion(ticketId, ticketElement.getAttribute('data-id'));
+        }
     }
+
+    function markTicketForDeletion(id, dataIdIteration){
+        const ticketsDeletionContainer = document.querySelector("#input-tickets-deletion-container");
+        const inputForDeletion = createElementFromHTML(`<input class="hidden" name="id_ticket_to_delete_${dataIdIteration}" value="${id}">`);
+        ticketsDeletionContainer.appendChild(inputForDeletion)
+    }
+
 
     function checkTicketIfEmpty() {
         const ticketList = document.getElementById("ticketsContainer");

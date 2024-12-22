@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_sosial_media
  * @property string $link_sosial_media
  * @property int $id_tempat_wisata
- * @property int $tipe_sosial_media
+ * @property int $id_platform
  *
  * @property TempatWisata $tempat_wisata
  * @property PlatformSosialMedia $platform_sosial_media
@@ -29,13 +29,13 @@ class SosialMedia extends Model
 
 	protected $casts = [
 		'id_tempat_wisata' => 'int',
-		'tipe_sosial_media' => 'int'
+		'id_platform' => 'int'
 	];
 
 	protected $fillable = [
 		'link_sosial_media',
 		'id_tempat_wisata',
-		'tipe_sosial_media'
+		'id_platform'
 	];
 
 	public function tempat_wisata()
@@ -43,8 +43,8 @@ class SosialMedia extends Model
 		return $this->belongsTo(TempatWisata::class, 'id_tempat_wisata');
 	}
 
-	public function platform_sosial_media()
+	public function platform()
 	{
-		return $this->belongsTo(PlatformSosialMedia::class, 'tipe_sosial_media');
+		return $this->belongsTo(PlatformSosialMedia::class, 'id_platform');
 	}
 }

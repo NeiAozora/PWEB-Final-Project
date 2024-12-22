@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class PlatformSosialMedia
- * 
+ *
  * @property int $id_platform
  * @property string $nama_platform
- * 
+ *
  * @property Collection|SosialMedia[] $sosial_media
  *
  * @package App\Models
@@ -31,6 +31,6 @@ class PlatformSosialMedia extends Model
 
 	public function sosial_media()
 	{
-		return $this->hasMany(SosialMedia::class, 'tipe_sosial_media');
+		return $this->hasMany(SosialMedia::class, 'id_platform');
 	}
 }

@@ -4,21 +4,20 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\ManageDestinationController;
 use App\Http\Controllers\Admin\ManageUserController;
-use App\Http\Controllers\Admin\KelolaAdminController;
 use App\Http\Controllers\Admin\ManageComments;
-use App\Http\Controllers\Admin\ManageDestinations;
 use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\RegisterController;
+use App\Http\Controllers\Visitor\BookingTicketController;
 use App\Http\Controllers\Visitor\HomepageController;
 use App\Http\Controllers\Visitor\ListDestinationController;
 use App\Http\Controllers\Visitor\DestinationDetailController;
 use App\Http\Controllers\Visitor\ProfileController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\GuestMiddleware;
 use App\Http\Middleware\MustAdminsMiddleware;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
 // Route Publik
 Route::get('/', [HomepageController::class, 'index'])->name('homepage'); // Halaman utama
@@ -34,15 +33,8 @@ return view('visitor-pages.pages.tentangkami');
 Route::get('/kelola-wisata',function(){
 return view('visitor-pages.pages.kelola-wisata');
 } );
-Route::get('/booking/detail-tiket',function(){
-return view('visitor-pages.pages.booking.detail-tiket');
-} );
-Route::get('/booking/pembayaran-tiket',function(){
-return view('visitor-pages.pages.booking.pembayaran-tiket');
-} );
-Route::get('/booking/pesanan/menunggu-verifikasi',function(){
-return view('visitor-pages.pages.booking.pesanan.menunggu-verifikasi');
-} );
+
+
 Route::get('/booking/pesanan/selesai',function(){
 return view('visitor-pages.pages.booking.pesanan.selesai');
 } );
@@ -61,8 +53,18 @@ Route::middleware(GuestMiddleware::class)->group(function(){
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); // Logout pengguna
 
 // Route Authenticated (Middleware Auth)
-Route::middleware('auth')->group(function(){
+Route::middleware(AuthMiddleware::class)->group(function(){
     Route::post('/tempat-wisata/{id}/ulasan', [ManageComments::class, 'store'])->name('comment.store'); // Proses penyimpanan data pendaftaran
+
+
+    Route::get('/booking-tiket',[BookingTicketController::class, 'indexBookingAmount'])->name('destination.booking');
+    Route::get('/booking-tiket/payment', [BookingTicketController::class, 'indexBookingPayment'])->name('destination.booking.payment');
+    Route::post('/booking-tiket/payment', [BookingTicketController::class, 'processBuyTicket'])->name('destination.booking.payment.apply');
+
+    Route::get('/booking-tiket/semua-pesanan',function(){
+        return view('visitor-pages.pages.booking.pesanan.menunggu-verifikasi');
+    })->name('booking.list');
+
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile'); // Halaman profil pengguna
     Route::get('/settings', [ProfileController::class, 'indexSettings'])->name('profile.settings');
     Route::put('/settings', [ProfileController::class, 'update'])->name('profile.settings.update');
@@ -71,15 +73,16 @@ Route::middleware('auth')->group(function(){
 // Route Admin (Harus Admin)
 Route::middleware(MustAdminsMiddleware::class)->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard'); // Dashboard Admin
-    Route::get('/admin/kelola-wisata', [ManageDestinations::class, 'index'])->name('admin.manage.destination'); // Kelola tempat wisata
+    Route::get('/admin/kelola-wisata', [ManageDestinationController::class, 'index'])->name('admin.manage.destination'); // Kelola tempat wisata
     Route::get('/admin/kelola-ulasan', [ManageComments::class, 'index'])->name('admin.manage.comment'); // Kelola ulasan
-    Route::get('/admin/tempat-wisata/{id}/ubah', [ManageDestinations::class, 'indexEditDestination'])->name('destination.edit.show'); // Ubah tempat wisata
-    Route::get('/admin/tempat-wisata/tambah', [ManageDestinations::class, 'indexAddDestination'])->name('destination.add.show'); // Tambah tempat wisata
+    Route::get('/admin/tempat-wisata/{id}/ubah', [DestinationController::class, 'indexEditDestination'])->name('destination.edit.show'); // Ubah tempat wisata
+    Route::get('/admin/tempat-wisata/tambah', [DestinationController::class, 'indexAddDestination'])->name('destination.add.show'); // Tambah tempat wisata
 
     Route::delete('/admin/kelola-ulasan/{id}/hapus', [ManageComments::class, 'deleteComment'])->name('comment.destroy'); // Hapus tempat wisata
-    Route::delete('/admin/tempat-wisata/{id}/hapus', [ManageDestinations::class, 'deleteDestination'])->name('destination.destroy'); // Hapus tempat wisata
+
+    Route::delete('/admin/tempat-wisata/{id}/hapus', [ManageDestinationController::class, 'deleteDestination'])->name('destination.destroy'); // Hapus tempat wisata
     Route::post('/admin/tempat-wisata/tambah', [DestinationController::class, 'createDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
-    Route::post('/admin/tempat-wisata/ubah', [ManageDestinations::class, 'updateDestination'])->name('destination.update'); // Proses penyimpanan data tempat wis
+    Route::put('/admin/tempat-wisata/ubah', [DestinationController::class, 'updateDestination'])->name('destination.update'); // Proses penyimpanan data tempat wis
 });
 
 // Route Manajemen Admin (Middleware Admin dengan level akses tert  entu)
