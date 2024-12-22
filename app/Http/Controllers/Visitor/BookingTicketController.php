@@ -81,6 +81,8 @@ class BookingTicketController extends Controller
         // Retrieve the ticket type from the database
         $tipeTiket = TipeTiket::find($validated['ticket']);
 
+        $tempatWisata = TempatWisata::find($validated['tempat-wisata']);
+
         // Save the payment proof image and get the file path
         $path = FileSystem::saveImage($validated['file'], null, 'storage/payment-proof');
 
@@ -119,7 +121,7 @@ class BookingTicketController extends Controller
 
         // return redirect()->route('destination.detail', ['id' => $validated['tempat_wisata']]);
 
-        Common::alertAndRedirect('Pembelian berhasil!', route('booking.list'));
+        Common::alertAndRedirect('Pembelian tiket ' . $tempatWisata->nama . 'berhasil!', route('booking.list'));
     }
 
     private function validate($request){
