@@ -22,6 +22,10 @@ class Pembayaran extends Model
     // Relation to PesananTiket (many to one)
     public function pesanan_tiket()
     {
-        return $this->belongsTo(PesananTiket::class, 'id_pesanan');
+        return $this->hasMany(PesananTiket::class, 'id_pesanan');
+    }
+
+    public function rekening_bank(){
+        return $this->hasOne(RekeningBank::class, 'id_rekening_bank');
     }
 }

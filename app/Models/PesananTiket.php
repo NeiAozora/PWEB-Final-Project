@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *
+ * @property Collection|Tiket[] $tikets
+ */
 class PesananTiket extends Model
 {
     use HasFactory;
@@ -36,6 +40,6 @@ class PesananTiket extends Model
     // Relation to Pembayaran (one to one)
     public function pembayaran()
     {
-        return $this->hasOne(Pembayaran::class, 'id_pesanan');
+        return $this->belongsTo(Pembayaran::class, 'id_pesanan');
     }
 }

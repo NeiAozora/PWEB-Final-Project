@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *
+ * @property Collection|TipeTiket[] $tipe_tiket
+ * @package App\Models
+ */
 class Tiket extends Model
 {
     use HasFactory;
@@ -25,13 +30,13 @@ class Tiket extends Model
     ];
 
     // Relation to PesananTiket (many to one)
-    public function pesananTiket()
+    public function pesanan_tiket()
     {
         return $this->belongsTo(PesananTiket::class, 'id_pesanan_tiket');
     }
 
     // Relation to TipeTiket (many to one)
-    public function tipeTiket()
+    public function tipe_tiket()
     {
         return $this->belongsTo(TipeTiket::class, 'id_tipe_tiket');
     }

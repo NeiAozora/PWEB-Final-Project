@@ -20,7 +20,7 @@ return new class extends Migration
                 $table->foreign('id_tempat_wisata')
                     ->references('id_tempat_wisata')
                     ->on('tempat_wisata')
-                    ->nullOnDelete();
+                    ->cascadeOnDelete();
 
                 $table->timestamps(); // For created_at and updated_at
             });

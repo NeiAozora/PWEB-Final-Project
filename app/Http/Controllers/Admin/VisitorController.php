@@ -39,5 +39,7 @@ class VisitorController extends Controller
             'label' => $daysOfMonth,  // Return the days of the month as labels
             'data' => array_values($filledData),  // Return the corresponding visitor counts
         ]);
+
+        
     }
 }

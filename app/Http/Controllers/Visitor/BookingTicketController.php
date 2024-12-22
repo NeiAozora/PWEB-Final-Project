@@ -63,7 +63,6 @@ class BookingTicketController extends Controller
 
         $tanggal = Carbon::parse($tanggal);
 
-
         return view('visitor-pages.pages.booking.pembayaran-tiket', ['destination' => $tempatWisata, 'tipeTiket' => $idTipeTiket, 'tanggal' => $tanggal, 'jumlah' => $jumlah]);
     }
 
@@ -72,6 +71,7 @@ class BookingTicketController extends Controller
         // Validate incoming request data
         $validated = $request->validate([
             'tempat-wisata' => 'required|integer|exists:tempat_wisata,id_tempat_wisata',
+            'id-rekening' => 'required|integer|exists:rekening_bank,id_rekening_bank',
             'ticket' => 'required|integer|exists:tipe_tiket,id_tipe_tiket',
             'tanggal' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             'jumlah' => 'required|integer|min:1',
@@ -98,6 +98,7 @@ class BookingTicketController extends Controller
             $pesananTiket = $pembayaran->pesanan_tiket()->create([
                 'id_pengguna' => Auth::user()->id_pengguna,
                 'status' => StatusPesananTiket::DIPROSES,
+                'id_rekening_bank' => $validated['id-rekening'],
             ]);
 
             // Create the ticket entry

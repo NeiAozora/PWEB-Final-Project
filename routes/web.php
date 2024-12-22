@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\ManageDestinationController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\ManageComments;
+use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\RegisterController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Visitor\BookingTicketController;
 use App\Http\Controllers\Visitor\HomepageController;
 use App\Http\Controllers\Visitor\ListDestinationController;
 use App\Http\Controllers\Visitor\DestinationDetailController;
+use App\Http\Controllers\Visitor\MyBookedTicketController;
 use App\Http\Controllers\Visitor\ProfileController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\AuthMiddleware;
@@ -43,12 +45,6 @@ return view('visitor-pages.pages.booking.pesanan.selesai');
 Route::get('/booking/pesanan/detail-pesanan',function(){
 return view('visitor-pages.pages.booking.pesanan.detail-pesanan');
 } );
-Route::get('/kelola-tiket',function(){
-return view('admin-pages.pages.kelola-tiket');
-} );
-Route::get('/konfirmasi-tiket',function(){
-return view('admin-pages.pages.detail-tiket');
-} );
 
 
 
@@ -75,9 +71,8 @@ Route::middleware(AuthMiddleware::class)->group(function(){
     Route::get('/booking-tiket/payment', [BookingTicketController::class, 'indexBookingPayment'])->name('destination.booking.payment');
     Route::post('/booking-tiket/payment', [BookingTicketController::class, 'processBuyTicket'])->name('destination.booking.payment.apply');
 
-    Route::get('/booking-tiket/semua-pesanan',function(){
-        return view('visitor-pages.pages.booking.pesanan.menunggu-verifikasi');
-    })->name('booking.list');
+    Route::get('/booking-tiket/semua-pesanan',[MyBookedTicketController::class, 'index'])->name('booking.list');
+    Route::get('/booking-tiket/detail', [MyBookedTicketController::class, 'indexDetail'])->name('booking.detail');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile'); // Halaman profil pengguna
     Route::get('/settings', [ProfileController::class, 'indexSettings'])->name('profile.settings');
@@ -103,6 +98,8 @@ Route::middleware(MustAdminsMiddleware::class)->group(function () {
     Route::post('admin/kategori-wisata/update', [CategoryController::class, 'update'])->name('admin.kategori-wisata.update');
     Route::get('admin/kategori-wisata/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.kategori-wisata.destroy');
 
+    Route::get('/admin/kelola-tiket', [TicketController::class, 'indexKelolaTiket'])->name('admin.kelola-tiket');
+    Route::get('/admin/konfirmasi-tiket', [TicketController::class, 'indexKonfirmasiTiket'])->name('admin.kelola-tiket.konfirmasi');
 
 
 

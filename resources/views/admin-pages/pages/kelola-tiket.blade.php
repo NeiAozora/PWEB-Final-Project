@@ -49,22 +49,11 @@
                                 Menunggu Verifikasi
                               </span>
                         </td>
-                        {{-- <td class="p-2 align-middle border">
-                            @if($destination->gambar)
-                                <img src="{{ (str_contains($destination->gambar, "http")) ? $destination->gambar : asset($destination->gambar) }}" alt="Foto Profil" class="img-thumbnail w-12 h-12 object-cover rounded-full border border-gray-300">
-                            @else
-                                <span class="text-gray-500">No Foto</span>
-                            @endif
-                        </td> --}}
-                        {{-- <td class="p-2 align-middle border">{{ $destination->rating_rata_rata }}</td>
-                        <td class="p-2 align-middle border">{{ $destination->rating_rata_rata }}</td> --}}
+
                         <td class="p-2 align-middle border">
-                            {{-- <a href="" class="btn btn-warning btn-sm px-4 py-2 rounded-md border border-yellow-500 hover:bg-yellow-500 hover:text-white transition duration-200">Edit</a> --}}
-                            <form action="" method="POST" style="display:inline;"
-                                {{-- @csrf --}}
-                                {{-- @method('DELETE') --}}
+                            <a href="{{ route('admin.kelola-tiket.konfirmasi') }}">
                                 <button type="submit" class="btn btn-danger btn-sm px-4 font-semibold py-2 text-white bg-cyan-500 rounded-md border border-cyan-500 hover:bg-cyan-600 hover:text-white transition duration-200">Detail</button>
-                            </form>
+                            </a>
                         </td>
                     </tr>
                     {{-- @php

@@ -105,7 +105,7 @@
             <!-- WhatsApp Contact Button -->
             <div class="mt-6 max-w-sm">
                 <a href="{{ $whatsappLink ?: '#' }}"
-                   class="{{ $whatsappLink ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 text-gray-500 cursor-not-allowed' }}
+                   class="{{ $whatsappLink ? 'bg-green-500 hover:bg-green-600 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed' }}
                           flex items-center justify-center px-6 py-3 rounded-lg text-lg font-medium space-x-3 transition"
                    title="{{ $whatsappLink ? '' : 'WhatsApp link is not available' }}">
                     <img class="h-6 w-6" src="{{ asset('assets/images/icons/whatsapp.svg') }}" alt="">
@@ -114,7 +114,7 @@
             </div>
             <div class="mt-6 max-w-sm">
                 <a
-                class="flex items-center justify-center px-6 py-3 rounded-lg text-lg font-medium space-x-3 transition bg-cyan-500 text-white hover:bg-cyan-800"
+                class="flex items-center justify-center px-6 py-3 rounded-lg text-lg font-medium space-x-3 transition bg-cyan-500 text-white hover:bg-cyan-600"
                 href="{{ route('destination.booking', ['tempat-wisata' => $destination->id_tempat_wisata]) }}">Beli Tiket</a>
             </div>
         </div>

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             CarouselSeeder::class,
             RoleSeeder::class,
             PenggunaSeeder::class,
-            PengunjungSeeder::class,
+            // PengunjungSeeder::class,
             PlatformSeeder::class,
             TempatWisataAndTheBoysSeeder::class,
         ]);

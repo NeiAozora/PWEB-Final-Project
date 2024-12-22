@@ -21,7 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $harga
  *
  * @property TempatWisata $tempat_wisata
- * @property Collection|Hari[] $haris
+ * @property Collection|Hari[] $hari
+ * @property Collection|Tiket[] $tikets
  *
  * @package App\Models
  */
@@ -50,6 +51,11 @@ class TipeTiket extends Model
 	{
 		return $this->belongsTo(TempatWisata::class, 'id_tempat_wisata');
 	}
+
+    public function tikets(){
+        return $this->hasMany(Tiket::class, 'id_tipe_tiket');
+    }
+
 
 	public function hari()
 	{
