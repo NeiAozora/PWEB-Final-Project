@@ -11,6 +11,20 @@
             <span class="text-cyan-500">1. Detail Tiket</span>
             <span class="text-gray-400">2. Pembayaran</span>
         </div>
+        <form action="#" method="POST">
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Tanggal Visit -->
+                <div>
+                    <label for="tanggal" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Visit</label>
+                    <input type="date" id="tanggal" name="tanggal" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                </div> 
+                
+                <!-- Jumlah Tiket -->
+                <div>
+                    <label for="jumlah" class="block text-sm font-medium text-gray-700 mb-2">Jumlah Tiket</label>
+                    <input type="number" id="jumlah" name="jumlah" min="1" placeholder="Masukkan Jumlah Tiket" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                </div>
+            </div>
 
         <div class="border rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">Detail Tiket</h2>
@@ -40,8 +54,5 @@
         </div>
     </div>
 </div>
-
-
-
 
 @endsection
