@@ -3,7 +3,7 @@
       <!-- Left Section with SVG Logo -->
       <div class="flex items-center space-x-2">
 
-        <img src="{{ asset("assets/images/logo-type-2.svg") }}" alt="logo-2" srcset="" class="w-40">
+        <img src="{{ asset("assets/images/logo-type-2.svg") }}" alt="logo-2" srcset="" class="w-40  ml-[50px]">
     </div>
 
       <!-- Right Section with Buttons -->

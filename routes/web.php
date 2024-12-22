@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\ManageDestinationController;
@@ -43,6 +44,9 @@ return view('visitor-pages.pages.booking.pembayaran-tiket');
 
 
 
+
+
+
 // Route Auth (Middleware Guest)
 Route::middleware(GuestMiddleware::class)->group(function(){
     Route::get('/login', [LoginController::class, 'index'])->name('login'); // Halaman login
@@ -67,6 +71,7 @@ Route::middleware(MustAdminsMiddleware::class)->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard'); // Dashboard Admin
     Route::get('/admin/kelola-wisata', [ManageDestinations::class, 'index'])->name('admin.manage.destination'); // Kelola tempat wisata
     Route::get('/admin/kelola-ulasan', [ManageComments::class, 'index'])->name('admin.manage.comment'); // Kelola ulasan
+    Route::get('/admin/kategori-wisata', [CategoryController::class, 'index'])->name('admin.kategori-wisata'); // Kelola wisata
     Route::get('/admin/tempat-wisata/{id}/ubah', [ManageDestinations::class, 'indexEditDestination'])->name('destination.edit.show'); // Ubah tempat wisata
     Route::get('/admin/tempat-wisata/tambah', [ManageDestinations::class, 'indexAddDestination'])->name('destination.add.show'); // Tambah tempat wisata
 
@@ -74,6 +79,14 @@ Route::middleware(MustAdminsMiddleware::class)->group(function () {
     Route::delete('/admin/tempat-wisata/{id}/hapus', [ManageDestinations::class, 'deleteDestination'])->name('destination.destroy'); // Hapus tempat wisata
     Route::post('/admin/tempat-wisata/tambah', [DestinationController::class, 'createDestination'])->name('destination.store'); // Proses penyimpanan data tempat wisata
     Route::post('/admin/tempat-wisata/ubah', [ManageDestinations::class, 'updateDestination'])->name('destination.update'); // Proses penyimpanan data tempat wis
+
+    Route::post('admin/kategori-wisata/store', [CategoryController::class, 'store'])->name('admin.kategori-wisata.store');
+    Route::post('admin/kategori-wisata/update', [CategoryController::class, 'update'])->name('admin.kategori-wisata.update');
+    Route::get('admin/kategori-wisata/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.kategori-wisata.destroy');
+
+
+
+
 });
 
 // Route Manajemen Admin (Middleware Admin dengan level akses tert  entu)

@@ -1,3 +1,4 @@
+
 function removeTrailingZeros(number) {
     // Convert the number to a string
     let str = number.toString();
