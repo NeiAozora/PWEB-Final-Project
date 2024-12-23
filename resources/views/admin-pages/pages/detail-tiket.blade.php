@@ -17,7 +17,7 @@
         <p class="text-cyan-500 font-semibold">2 Tiket</p>
       </div>
     </div>
-  
+
     <!-- Pembayaran -->
     <div class="mb-4">
       <h2 class="text-lg font-bold">Pembayaran</h2>
@@ -33,7 +33,7 @@
         </button>
       </div>
     </div>
-  
+
     <!-- Tiket -->
     <div class="mb-4">
       <h2 class="text-lg font-bold">Tiket</h2>
@@ -44,13 +44,25 @@
         />
       </div>
     </div>
-  
-    <!-- Konfirmasi Verifikasi -->
-    <button class="w-full bg-cyan-500 text-white font-semibold py-3 rounded hover:bg-cyan-600">
-      Konfirmasi Verifikasi
-    </button>
+
+    <div class="flex space-x-4">
+        <!-- Konfirmasi Verifikasi -->
+        <button class="w-full bg-cyan-500 text-white font-semibold py-3 rounded hover:bg-cyan-600">
+            Konfirmasi Verifikasi
+        </button>
+        <!-- Tolak Verifikasi -->
+        <button class="w-full bg-red-600 text-white font-semibold py-3 rounded hover:bg-red-700">
+            Tolak Verifikasi
+        </button>
+    </div>
+
+
+    <!-- Terima tiket -->
+    <button class="w-full mt-4 bg-green-600 text-white font-semibold py-3 rounded hover:bg-green-700">
+        Terima tiket
+        </button>
 </div>
-  
+
 
 <script>
     lightSidebarKelolaTiketBtn()
