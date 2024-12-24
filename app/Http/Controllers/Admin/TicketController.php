@@ -16,7 +16,7 @@ class TicketController extends Controller
 
         if (Auth::user()->id_role == 3) {
             $pesananTiket = $pesananTiket->whereHas('tikets.tipe_tiket.tempat_wisata', function($query) {
-                $query->where('id_user', Auth::user()->id_user);
+                $query->where('id_pengguna', Auth::user()->id_pengguna);
             });
         }
 
